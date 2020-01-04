@@ -4,6 +4,7 @@ export VAULT_ADDR=http://localhost:18200
 export KUBECONFIG="$HOME/.shipyard/config/k3s/kubeconfig.yaml"
 
 echo "Configuring Vault"
+
 # This should not be necessary
 sleep 10
 
