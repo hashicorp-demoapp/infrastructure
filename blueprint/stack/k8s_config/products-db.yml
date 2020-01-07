@@ -29,15 +29,17 @@ spec:
       labels:
         service: postgres
         app: postgres
+      annotations:
+        consul.hashicorp.com/connect-inject: "true"
     spec:
       containers:
         - name: postgres
-          image: hashicorpdemoapp/postgres:11.6
+          image: hashicorpdemoapp/product-api-db:v0.0.6
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: wizard
+              value: products
             - name: POSTGRES_USER
               value: postgres
             - name: POSTGRES_PASSWORD

@@ -42,12 +42,14 @@ spec:
       labels:
         app: web
       annotations:
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/connect-service-upstreams: "postgres:5432"
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-inject-secret-db-creds: "database/creds/db-app"
         vault.hashicorp.com/agent-inject-template-db-creds: |
           {
           {{ with secret "database/creds/db-app" -}}
-            "db_connection": "host=postgres port=5432 user={{ .Data.username }} password={{ .Data.password }} dbname=wizard sslmode=disable"
+            "db_connection": "host=localhost port=5432 user={{ .Data.username }} password={{ .Data.password }} dbname=products sslmode=disable"
           {{- end }}
           }
         vault.hashicorp.com/role: "web"
@@ -55,7 +57,7 @@ spec:
       serviceAccountName: web
       containers:
         - name: web
-          image: hashicorpdemoapp/product-api:v0.0.4
+          image: hashicorpdemoapp/product-api:v0.0.6
           ports:
             - containerPort: 9090
           env:

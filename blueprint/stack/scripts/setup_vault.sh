@@ -21,11 +21,11 @@ kubectl exec $(kubectl get pods --selector "app.kubernetes.io/instance=vault,com
 # Enable and configure PostgresSQL Dynamic secrets
 vault secrets enable database
 
-vault write database/config/wizard \
+vault write database/config/products \
     plugin_name=postgresql-database-plugin \
     verify_connection=false \
     allowed_roles="*" \
-    connection_url="postgresql://{{username}}:{{password}}@postgres:5432/wizard?sslmode=disable" \
+    connection_url="postgresql://{{username}}:{{password}}@postgres:5432/products?sslmode=disable" \
     username="postgres" \
     password="password"
 
@@ -34,7 +34,7 @@ vault write database/config/wizard \
 
 # Create a role allowing credentials to be created with access for all tables in the DB
 vault write database/roles/db-app \
-    db_name=wizard \
+    db_name=products \
     creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
         GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
     revocation_statements="ALTER ROLE \"{{name}}\" NOLOGIN;"\

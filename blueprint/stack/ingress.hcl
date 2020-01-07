@@ -19,3 +19,25 @@ ingress "vault-http" {
     host   = 18200
   }
 }
+
+ingress "product-api-db" {
+  target = "cluster.k3s"
+  service  = "svc/postgres"
+
+  port {
+    local  = 5432
+    remote = 5432
+    host   = 15432
+  }
+}
+
+ingress "product-api" {
+  target = "cluster.k3s"
+  service  = "svc/web-service"
+
+  port {
+    local  = 9090
+    remote = 9090
+    host   = 19090
+  }
+}
