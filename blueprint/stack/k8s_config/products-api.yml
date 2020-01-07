@@ -63,3 +63,10 @@ spec:
           env:
             - name: "CONFIG_FILE"
               value: "/vault/secrets/db-creds"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 9090
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+
