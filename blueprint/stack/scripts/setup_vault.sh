@@ -33,7 +33,7 @@ vault write database/config/products \
 #vault write --force database/rotate-root/wizard
 
 # Create a role allowing credentials to be created with access for all tables in the DB
-vault write database/roles/db-app \
+vault write database/roles/db-products \
     db_name=products \
     creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
         GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
@@ -44,11 +44,11 @@ vault write database/roles/db-app \
 # Write the policy to allow read access to the role
 # we are using dirname "$0" to get the current directory for this script
 # we cannot use relative paths as they may not work
-vault policy write web-dynamic $(dirname "$0")/web_policy.hcl
+vault policy write products-api $(dirname "$0")/products_policy.hcl
 
 # Assign the policy to users who authenticate with Kubernetes service accounts called web
-vault write auth/kubernetes/role/web \
-    bound_service_account_names=web \
+vault write auth/kubernetes/role/products-api \
+    bound_service_account_names=products-api \
     bound_service_account_namespaces=default \
-    policies=web-dynamic \
+    policies=products-api \
     ttl=1h
