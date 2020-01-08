@@ -68,3 +68,5 @@ spec:
               port: 9090
             initialDelaySeconds: 15
             timeoutSeconds: 1
+            periodSeconds: 10
+            failureThreshold: 30
