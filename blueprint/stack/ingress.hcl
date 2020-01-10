@@ -33,7 +33,7 @@ ingress "product-api-db" {
 
 ingress "product-api" {
   target = "cluster.k3s"
-  service  = "svc/web-service"
+  service  = "svc/products-api-service"
 
   port {
     local  = 9090
