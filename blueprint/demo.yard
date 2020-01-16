@@ -17,7 +17,7 @@ intro = <<EOF
   
   ## Consul UI
      
-     Open `http://localhost:18500` to access the VAULT UI
+     Open `http://localhost:18500` to access the CONSUL UI
   
   ## Cleanup
 
