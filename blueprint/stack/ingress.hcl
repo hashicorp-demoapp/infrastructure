@@ -42,6 +42,27 @@ ingress "product-api" {
   }
 }
 
+ingress "public-api" {
+  target = "cluster.k3s"
+  service  = "svc/public-api-service"
+
+  port {
+    local  = 8080
+    remote = 8080
+    host   = 18080
+  }
+}
+
+ingress "frontend" {
+  target = "cluster.k3s"
+  service  = "svc/frontend-service"
+
+  port {
+    local  = 80
+    remote = 80
+    host   = 10080
+  }
+}
 
 ingress "prometheus-server" {
   target = "cluster.k3s"
@@ -73,5 +94,11 @@ ingress "jaeger" {
     local  = 16686
     remote = 16686
     host   = 16686
+  }
+  
+  port {
+    local  = 9411
+    remote = 9411
+    host   = 19411
   }
 }
