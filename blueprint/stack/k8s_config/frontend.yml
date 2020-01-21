@@ -76,7 +76,7 @@ spec:
             path: default.conf
       containers:
         - name: frontend
-          image: hashicorpdemoapp/frontend:v0.0.1
+          image: hashicorpdemoapp/frontend:v0.0.2
           ports:
             - containerPort: 80
           volumeMounts:
