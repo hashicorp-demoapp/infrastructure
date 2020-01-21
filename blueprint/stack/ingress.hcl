@@ -41,3 +41,37 @@ ingress "product-api" {
     host   = 19090
   }
 }
+
+
+ingress "prometheus-server" {
+  target = "cluster.k3s"
+  service  = "svc/prometheus-server"
+
+  port {
+    local  = 80
+    remote = 80
+    host   = 19100
+  }
+}
+
+ingress "grafana" {
+  target = "cluster.k3s"
+  service  = "svc/grafana"
+
+  port {
+    local  = 80
+    remote = 80
+    host   = 13000
+  }
+}
+
+ingress "jaeger" {
+  target = "cluster.k3s"
+  service  = "svc/jaeger"
+
+  port {
+    local  = 16686
+    remote = 16686
+    host   = 16686
+  }
+}

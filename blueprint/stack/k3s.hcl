@@ -5,4 +5,13 @@ cluster "k3s" {
   nodes = 1 // default
 
   network = "network.cloud"
+
+  // push images from local docker to k3s on create
+  image {
+    name = "hashicorpdemoapp/product-api:v0.0.10"
+  }
+  
+  image {
+    name = "hashicorpdemoapp/product-api-db:v0.0.10"
+  }
 }

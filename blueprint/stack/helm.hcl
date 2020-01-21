@@ -19,3 +19,15 @@ helm "vault" {
     pods = ["app.kubernetes.io/name=vault"]
   }
 }
+
+helm "prometheus" {
+  cluster = "cluster.k3s"
+  chart = "./helm/prometheus"
+  values= "./helm/prometheus-values.yaml"
+}
+
+helm "grafana" {
+  cluster = "cluster.k3s"
+  chart = "./helm/grafana"
+  values= "./helm/grafana-values.yaml"
+}

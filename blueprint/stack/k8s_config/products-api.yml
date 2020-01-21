@@ -42,6 +42,7 @@ spec:
       labels:
         app: products-api
       annotations:
+        prometheus.io/scrape: "true"
         consul.hashicorp.com/connect-inject: "true"
         consul.hashicorp.com/connect-service-upstreams: "postgres:5432"
         vault.hashicorp.com/agent-inject: "true"
@@ -49,7 +50,9 @@ spec:
         vault.hashicorp.com/agent-inject-template-db-creds: |
           {
           {{ with secret "database/creds/db-products" -}}
-            "db_connection": "host=localhost port=5432 user={{ .Data.username }} password={{ .Data.password }} dbname=products sslmode=disable"
+            "db_connection": "host=localhost port=5432 user={{ .Data.username }} password={{ .Data.password }} dbname=products sslmode=disable",
+            "bind_address": ":9090",
+            "metrics_address": ":9103"
           {{- end }}
           }
         vault.hashicorp.com/role: "products-api"
@@ -57,9 +60,10 @@ spec:
       serviceAccountName: products-api
       containers:
         - name: products-api
-          image: hashicorpdemoapp/product-api:v0.0.9
+          image: hashicorpdemoapp/product-api:v0.0.11
           ports:
             - containerPort: 9090
+            - containerPort: 9102
           env:
             - name: "CONFIG_FILE"
               value: "/vault/secrets/db-creds"
