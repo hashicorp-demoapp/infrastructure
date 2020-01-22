@@ -1,5 +1,5 @@
 # Infrastructure
-Contains infrastructure as code for running demo app locally or in the cloud
+Contains infrastructure as code for running demo app locally or in the cloud.
 
 At present tha applications consists of the following services:
 
