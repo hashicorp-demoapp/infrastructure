@@ -1,9 +1,9 @@
-# infrastructure
-Contains infrastructure as code for running demo app locally or in the cloud
+# Infrastructure
+Contains infrastructure as code for running demo app locally or in the cloud.
 
-At present tha applications consists of the following services:
+At present the applications consists of the following components:
 
-![](images/infra.png)
+![](/images/infa.png)
 
 ## GraphQL API
 
