@@ -1,7 +1,4 @@
 #!/bin/bash -e
-export VAULT_TOKEN=root
-export VAULT_ADDR=http://localhost:18200
-export KUBECONFIG="$HOME/.shipyard/config/k3s/kubeconfig.yaml"
 
 echo "Configuring Vault"
 

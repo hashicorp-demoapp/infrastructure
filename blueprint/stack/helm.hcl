@@ -1,6 +1,6 @@
 helm "consul" {
   cluster = "cluster.k3s"
-  chart = "./helm/consul-helm-0.9.0"
+  chart = "./helm/consul-helm-0.16.2"
   values = "./helm/consul-values.yaml"
   
   health_check {
@@ -11,7 +11,7 @@ helm "consul" {
 
 helm "vault" {
   cluster = "cluster.k3s"
-  chart = "./helm/vault-helm-0.3.0"
+  chart = "./helm/vault-helm-0.3.3"
   values = "./helm/vault-values.yaml"
 
   health_check {
