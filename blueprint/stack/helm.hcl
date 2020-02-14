@@ -20,6 +20,7 @@ helm "vault" {
   }
 }
 
+/*
 helm "prometheus" {
   cluster = "k8s_cluster.k3s"
   chart = "./helm/prometheus"
@@ -31,3 +32,4 @@ helm "grafana" {
   chart = "./helm/grafana"
   values= "./helm/grafana-values.yaml"
 }
+*/

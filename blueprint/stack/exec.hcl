@@ -1,4 +1,6 @@
 exec_remote "setup_vault" {
+  depends_on = ["helm.vault"]
+
   network  {
     name = "network.cloud"
   }
