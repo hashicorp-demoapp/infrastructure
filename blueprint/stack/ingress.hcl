@@ -1,6 +1,10 @@
 ingress "consul-http" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/consul-consul-server"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 8500
@@ -10,8 +14,12 @@ ingress "consul-http" {
 }
 
 ingress "vault-http" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/vault"
+
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 8200
@@ -21,8 +29,12 @@ ingress "vault-http" {
 }
 
 ingress "product-api-db" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/postgres"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 5432
@@ -32,8 +44,12 @@ ingress "product-api-db" {
 }
 
 ingress "product-api" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/products-api-service"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 9090
@@ -43,8 +59,12 @@ ingress "product-api" {
 }
 
 ingress "public-api" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/public-api-service"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 8080
@@ -54,8 +74,12 @@ ingress "public-api" {
 }
 
 ingress "frontend" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/frontend-service"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 80
@@ -65,8 +89,12 @@ ingress "frontend" {
 }
 
 ingress "prometheus-server" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/prometheus-server"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 80
@@ -76,8 +104,12 @@ ingress "prometheus-server" {
 }
 
 ingress "grafana" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/grafana"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 80
@@ -87,8 +119,12 @@ ingress "grafana" {
 }
 
 ingress "jaeger" {
-  target = "cluster.k3s"
+  target = "k8s_cluster.k3s"
   service  = "svc/jaeger"
+  
+  network {
+    name = "network.cloud"
+  }
 
   port {
     local  = 16686

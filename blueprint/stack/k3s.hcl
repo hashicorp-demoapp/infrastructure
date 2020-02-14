@@ -1,10 +1,12 @@
-cluster "k3s" {
+k8s_cluster "k3s" {
   driver  = "k3s" // default
   version = "v1.0.1"
 
   nodes = 1 // default
 
-  network = "network.cloud"
+  network {
+    name = "network.cloud"
+  }
 
   // push images from local docker to k3s on create
   image {
