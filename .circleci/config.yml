@@ -1,0 +1,93 @@
+---
+version: 2
+default_env: &default_env
+  BACKEND_CONFIG: da.backend
+
+defaults: &defaults
+  working_directory: /root/infrastructure/cloud
+  environment:
+    <<: *default_env
+  docker:
+    - image: joatmon08/circleci-gcp-agent
+
+jobs:
+  init:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: initialize terraform
+          command: terraform init -backend-config=${BACKEND_CONFIG}
+      - persist_to_workspace:
+          root: /root
+          paths:
+            - .terraformrc
+            - infrastructure/cloud/.terraform
+
+  plan:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: plan
+          command: terraform plan -out=/root/infrastructure/cloud/.terraform/tfplan
+      - persist_to_workspace:
+          root: /root
+          paths:
+            - .terraformrc
+            - infrastructure/cloud/.terraform
+
+  apply:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: apply
+          command: terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
+  
+  destroy:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: destroy
+          command: |
+            terraform init -backend-config=${BACKEND_CONFIG}
+            terraform destroy -auto-approve
+
+workflows:
+  version: 2
+  demoapp-infrastructure:
+    jobs:
+      - init
+      - plan:
+          requires:
+            - init
+      - approve-plan:
+          type: approval
+          requires:
+            - plan
+      - apply:
+          requires:
+            - approve-plan
+      - approve-destroy:
+          type: approval
+          requires:
+            - init
+      - destroy:
+          requires:
+            - approve-destroy
