@@ -2,6 +2,7 @@
 version: 2
 default_env: &default_env
   BACKEND_CONFIG: da.backend
+  PLAN_FILE: /root/infrastructure/cloud/.terraform/tfplan
 
 defaults: &defaults
   working_directory: /root/infrastructure/cloud
@@ -37,12 +38,26 @@ jobs:
           at: /root
       - run:
           name: plan
-          command: terraform plan -out=/root/infrastructure/cloud/.terraform/tfplan
+          command: terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
           paths:
             - .terraformrc
             - infrastructure/cloud/.terraform
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: create JSON plan
+          command: terraform show -json ${PLAN_FILE} > tfplan.json
+      - run:
+          name: check terraform plan for security or policy issues
+          command: cat tfplan.json | conftest test -p tests/azure_db -
 
   apply:
     <<: *defaults
@@ -77,10 +92,13 @@ workflows:
       - plan:
           requires:
             - init
+      - test:
+          requires:
+            - plan
       - approve-plan:
           type: approval
           requires:
-            - plan
+            - test
       - apply:
           requires:
             - approve-plan
