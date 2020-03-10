@@ -8,6 +8,11 @@ provider "google" {
   project = var.gcp.project
 }
 
+provider "google-beta" {
+  version = "~> 3.12"
+  project = var.gcp.project
+}
+
 provider "azurerm" {
   version = "~> 2.0"
   features {}

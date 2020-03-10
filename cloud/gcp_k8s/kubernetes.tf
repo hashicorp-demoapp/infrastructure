@@ -1,4 +1,5 @@
 resource "google_container_cluster" "engineering" {
+  provider = google-beta
   name     = var.cluster_name
   location = var.location
 
@@ -16,10 +17,16 @@ resource "google_container_cluster" "engineering" {
 }
 
 resource "google_container_node_pool" "engineering_preemptible_nodes" {
+  provider   = google-beta
   name       = "${var.cluster_name}-node-pool"
   location   = var.location
   cluster    = google_container_cluster.engineering.name
   node_count = 1
+
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 3
+  }
 
   node_config {
     preemptible  = true
