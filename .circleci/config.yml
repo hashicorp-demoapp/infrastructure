@@ -56,8 +56,11 @@ jobs:
           name: create JSON plan
           command: terraform show -json ${PLAN_FILE} > tfplan.json
       - run:
-          name: check terraform plan for security or policy issues
-          command: cat tfplan.json | conftest test -p tests/azure_db -
+          name: check database configuration for security or policy issues
+          command: cat tfplan.json | conftest test -p tests/azure -
+      - run:
+          name: check kubernetes configuration for security or policy issues
+          command: cat tfplan.json | conftest test -p tests/gcp -
 
   apply:
     <<: *defaults
