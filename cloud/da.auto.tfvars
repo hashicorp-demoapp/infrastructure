@@ -7,6 +7,6 @@ azure = {
   location = "Central US"
 }
 
-service = "products"
+service = "demoapp"
 
 db_username = "postgres"
