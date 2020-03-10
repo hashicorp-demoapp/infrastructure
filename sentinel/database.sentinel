@@ -1,0 +1,17 @@
+import "tfplan"
+
+get_firewalls = func() {
+
+}
+
+check_firewall = func() {
+  for tfplan.resources.module.database.azurerm_postgresql_firewall_rule as frule {
+    print("rule", frule)
+  }
+
+  return false
+}
+
+main = rule {
+  check_firewall()
+}
