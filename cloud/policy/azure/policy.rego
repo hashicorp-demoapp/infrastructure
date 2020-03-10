@@ -1,4 +1,4 @@
-package main
+package azure.database
 
 do_not_delete = [
   "module.database.azurerm_postgresql_database"

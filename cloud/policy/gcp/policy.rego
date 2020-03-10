@@ -1,4 +1,4 @@
-package main
+package gcp.kubernetes
 
 check_tags[r] {
   resource := gcp[_]

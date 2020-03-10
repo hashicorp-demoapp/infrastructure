@@ -1,7 +1,7 @@
-package main
+package gcp.kubernetes
 
-azure[r] {
+gcp[r] {
   resources := input.planned_values.root_module.child_modules[_].resources[_]
-  resources.provider_name = "azurerm"
+  resources.provider_name = "google-beta"
   r := resources
 }

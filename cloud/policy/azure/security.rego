@@ -1,4 +1,4 @@
-package main
+package azure.database
 
 deny[msg] {
   resources := azure[_]

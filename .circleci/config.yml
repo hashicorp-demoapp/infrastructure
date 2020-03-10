@@ -57,10 +57,10 @@ jobs:
           command: terraform show -json ${PLAN_FILE} > tfplan.json
       - run:
           name: check database configuration for security or policy issues
-          command: cat tfplan.json | conftest test -p tests/azure -
+          command: opa eval --format pretty --data policy --input tfplan.json "data.azure.database.deny" 
       - run:
           name: check kubernetes configuration for security or policy issues
-          command: cat tfplan.json | conftest test -p tests/gcp -
+          command: opa eval --format pretty --data policy --input tfplan.json "data.gcp.kubernetes.deny" 
 
   apply:
     <<: *defaults

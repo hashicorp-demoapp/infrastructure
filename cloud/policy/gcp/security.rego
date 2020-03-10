@@ -1,4 +1,4 @@
-package main
+package gcp.kubernetes
 
 allowed_scopes = [
   "https://www.googleapis.com/auth/logging.write",
