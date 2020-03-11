@@ -9,7 +9,7 @@ defaults: &defaults
   environment:
     <<: *default_env
   docker:
-    - image: joatmon08/circleci-gcp-agent
+    - image: joatmon08/circleci-gcp-agent:latest
 
 jobs:
   init:
