@@ -6,7 +6,7 @@ do_not_delete = [
 
 check_delete_protected(resources, disallowed) {
   startswith(resources[i].address, disallowed[_])
-  resources[i].change[0].actions[_] == "delete"
+  resources[i].change.actions[_] == "delete"
 }
 
 deny[msg] {
