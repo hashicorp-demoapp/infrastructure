@@ -1,6 +1,6 @@
 hostname = "app.terraform.io"
-organization = "hashicorp-team-da-beta"
+organization = "hashicorp-team-demo"
 
 workspaces {
-  name = "hashicorp-demoapp-opa"
+  name = "hashicorp-demoapp"
 }

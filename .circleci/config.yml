@@ -9,7 +9,7 @@ defaults: &defaults
   environment:
     <<: *default_env
   docker:
-    - image: joatmon08/circleci-gcp-agent:latest
+    - image: joatmon08/circleci-gcp-agent:283.0-1.14.67
 
 jobs:
   init:
@@ -23,7 +23,6 @@ jobs:
       - run:
           name: initialize terraform
           command: |
-            rm -rf .terraform
             terraform init -backend-config=${BACKEND_CONFIG}
       - persist_to_workspace:
           root: /root
