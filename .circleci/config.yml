@@ -45,7 +45,7 @@ jobs:
             - .terraformrc
             - infrastructure/cloud/.terraform
 
-  test:
+  policy:
     <<: *defaults
     steps:
       - checkout:
@@ -95,13 +95,13 @@ workflows:
       - plan:
           requires:
             - init
-      - test:
+      - policy:
           requires:
             - plan
       - approve-plan:
           type: approval
           requires:
-            - test
+            - policy
       - apply:
           requires:
             - approve-plan
