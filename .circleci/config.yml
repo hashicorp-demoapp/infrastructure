@@ -22,7 +22,9 @@ jobs:
           command: make terraform-cloud
       - run:
           name: initialize terraform
-          command: terraform init -backend-config=${BACKEND_CONFIG}
+          command: |
+            rm -rf .terraform
+            terraform init -backend-config=${BACKEND_CONFIG}
       - persist_to_workspace:
           root: /root
           paths:
