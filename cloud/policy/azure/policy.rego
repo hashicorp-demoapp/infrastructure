@@ -10,13 +10,3 @@ check_delete_resources[r] {
 check_tags[r] {
 	r := [res.address | res := azure[_]; is_null(res.values.tags)]
 }
-
-deny[msg] {
-	count(check_delete_resources[_]) > 0
-	msg = sprintf("plan will delete protected resource: %s", [check_delete_resources[_]])
-}
-
-deny[msg] {
-	count(check_tags[_]) > 0
-	msg = sprintf("resource %s must have tags", [check_tags[_]])
-}
