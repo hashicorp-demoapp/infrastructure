@@ -58,10 +58,9 @@ jobs:
           command: terraform show -json ${PLAN_FILE} > tfplan.json
       - run:
           name: check database configuration for security or policy issues
-          command: opa eval --format pretty --data policy --input tfplan.json "data.azure.database.deny" --fail-defined 
-      - run:
-          name: check kubernetes configuration for security or policy issues
-          command: opa eval --format pretty --data policy --input tfplan.json "data.gcp.kubernetes.deny" --fail-defined
+          command: |
+            opa eval --format pretty --data policy --input tfplan.json --fail-defined --package gcp.kubernetes deny
+            opa eval --format pretty --data policy --input tfplan.json --fail-defined --package azure.database deny
 
   apply:
     <<: *defaults
