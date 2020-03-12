@@ -1,20 +1,22 @@
 package azure.database
 
-do_not_delete = [
-  "module.database.azurerm_postgresql_database"
-]
+do_not_delete = ["module.database.azurerm_postgresql_database"]
 
-check_delete_protected(resources, disallowed) {
-  startswith(resources[i].address, disallowed[_])
-  resources[i].change.actions[_] == "delete"
+check_delete_resources[r] {
+	types := [res | res := azure_resource_changes[_]; startswith(res.address, do_not_delete[_])]
+	r := [res.address | res := types[_]; res.change.actions[_] == "delete"]
+}
+
+check_tags[r] {
+  r := [res.address | res := azure[_]; is_null(res.values.tags)]
 }
 
 deny[msg] {
-  check_delete_protected(input.resource_changes, do_not_delete)
-  msg = "terraform plan will delete a protected resource"
+	count(check_delete_resources[_]) > 0
+	msg = sprintf("plan will delete protected resource: %s", [check_delete_resources[_]])
 }
 
 deny[msg] {
-  is_null(input.planned_values.root_module.child_modules[_].resources[i].values.tags)
-  msg = sprintf("resource %s must have tags", [input.planned_values.root_module.child_modules[_].resources[i].address])
+  count(check_tags[_]) > 0
+	msg = sprintf("resource %s must have tags", [check_tags[_]])
 }
