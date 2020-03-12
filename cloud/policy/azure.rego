@@ -1,10 +1,10 @@
 package main
 
-import data.azure.database.check_delete_resources
-import data.azure.database.check_tags
-import data.azure.database.check_firewall_rules
 import data.azure.database.check_database_password_length
+import data.azure.database.check_delete_resources
+import data.azure.database.check_firewall_rules
 import data.azure.database.check_sensitive_outputs
+import data.azure.database.check_tags
 
 deny[msg] {
 	count(check_delete_resources[_]) > 0
@@ -15,7 +15,6 @@ deny[msg] {
 	count(check_tags[_]) > 0
 	msg = sprintf("resource %s must have tags", [check_tags[_]])
 }
-
 
 deny[msg] {
 	count(check_firewall_rules[_]) > 0

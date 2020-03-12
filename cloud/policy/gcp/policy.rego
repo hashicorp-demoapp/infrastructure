@@ -1,18 +1,10 @@
 package gcp.kubernetes
 
 check_tags[r] {
-	resource := gcp[_]
-	is_null(resource.values.node_config[_].tags)
-	r := resource.address
+	r := [res.address | res := gcp[_]; is_null(res.values.node_config[i].tags)]
 }
 
-deny[msg] {
-	count(check_tags[_]) > 0
-	msg = sprintf("missing tags: %s", [check_tags[_]])
-}
-
-deny[msg] {
+check_max_node_count[r] {
 	resource := gcp[_]
-	resource.values.autoscaling[_].max_node_count > 3
-	msg = "cluster node pool must have max_node_count less than or equal to 3"
+	r := resource.values.autoscaling[_].max_node_count
 }
