@@ -7,6 +7,11 @@ import data.gcp.kubernetes.check_legacy_abac_enabled
 import data.gcp.kubernetes.check_username_and_password
 import data.gcp.kubernetes.check_cluster_client_certificate
 
+gke_allowed_scopes = [
+	"https://www.googleapis.com/auth/logging.write",
+	"https://www.googleapis.com/auth/monitoring",
+]
+
 deny[msg] {
 	count(check_tags[_]) > 0
 	msg = sprintf("resource %s must have tags", [check_tags[_]])
@@ -33,6 +38,8 @@ deny[msg] {
 }
 
 deny[msg] {
-	check_oauth_scopes
-	msg = sprintf("cluster node config must have specific oauth scopes")
+	scopes := check_oauth_scopes[_]
+	count(scopes) != count(gke_allowed_scopes)
+	contains(scopes[i], gke_allowed_scopes[_])
+	msg = sprintf("cluster node config must have specific oauth scopes: %v", [gke_allowed_scopes[_]])
 }

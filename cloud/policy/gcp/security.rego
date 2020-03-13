@@ -1,15 +1,8 @@
 package gcp.kubernetes
 
-allowed_scopes = [
-	"https://www.googleapis.com/auth/logging.write",
-	"https://www.googleapis.com/auth/monitoring",
-]
-
-check_oauth_scopes {
+check_oauth_scopes[r] {
 	resources := gcp[_]
-	oauth_scopes := resources.values.node_config[_].oauth_scopes
-	count(oauth_scopes) != count(allowed)
-	contains(oauth_scopes[i], allowed[_])
+	r := resources.values.node_config[_].oauth_scopes
 }
 
 check_legacy_abac_enabled[r] {
