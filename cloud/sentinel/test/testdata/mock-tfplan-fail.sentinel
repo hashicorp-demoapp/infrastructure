@@ -112,7 +112,7 @@ planned_values = {
 			"type":           "azurerm_postgresql_server",
 			"values": {
 				"administrator_login":          "postgres",
-				"administrator_login_password": "Testing!123",
+				"administrator_login_password": "adf",
 				"location":                     "centralus",
 				"name":                         "products-postgres-server",
 				"resource_group_name":          "products",
