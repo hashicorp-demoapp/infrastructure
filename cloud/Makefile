@@ -32,6 +32,15 @@ vault:
 	kubectl create configmap setup --from-file=./scripts/setup_vault.sh --from-file=./scripts/products_policy.hcl || true
 	kubectl apply -f ./k8s_config/tools.yml
 
+conftest:
+	cat tfplan.json | conftest test -p policy/ -
+
+opa-test:
+	opa test policy -f pretty -v
+
+opa-eval:
+	opa eval --format pretty --data policy --input tfplan.json --fail-defined --package main deny
+
 clean:
 	rm -f products.sql
 	helm delete consul vault
