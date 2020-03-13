@@ -1,18 +1,20 @@
 package main
 
 import data.azure.database.length_of_database_server_password
-import data.azure.database.check_delete_resources
 import data.azure.database.number_of_non_permissive_database_firewall_rules
-import data.azure.database.check_tags
+import data.azure.database.plan_will_delete_protected_resources
+import data.azure.database.number_of_resources_missing_tags
+
+do_not_delete_these_resources = ["module.database.azurerm_postgresql_database.example"]
 
 deny[msg] {
-	count(check_delete_resources[_]) > 0
-	msg = sprintf("plan will delete protected resource: %s", [check_delete_resources[_]])
+	plan_will_delete_protected_resources(do_not_delete_these_resources)
+	msg = sprintf("plan will delete a protected resource: %v", [do_not_delete_these_resources[_]])
 }
 
 deny[msg] {
-	count(check_tags[_]) > 0
-	msg = sprintf("resource %s must have tags", [check_tags[_]])
+	count(number_of_resources_missing_tags[_]) > 0
+	msg = sprintf("resource %v must have tags", [number_of_resources_missing_tags[_]])
 }
 
 deny[msg] {
