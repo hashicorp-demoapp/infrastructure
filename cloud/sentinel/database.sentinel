@@ -1,0 +1,18 @@
+import "tfplan"
+
+check_firewall_rules = func() {
+	fw_violations = []
+	resources = values(tfplan.planned_values.resources)
+	fw_resources = filter resources as _, v { v.type is "azurerm_postgresql_firewall_rule" }
+	for fw_resources as fw {
+		if (fw.values.end_ip_address == "255.255.255.255" and fw.values.start_ip_address == "0.0.0.0") {
+			append(fw_violations, fw.address)
+		}
+	}
+	print(fw_violations)
+	return length(fw_violations) == 0
+}
+
+main = rule {
+	check_firewall_rules()
+}

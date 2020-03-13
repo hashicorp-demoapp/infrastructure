@@ -1,0 +1,26 @@
+terraform_version = "0.12.23"
+
+outputs = {
+	"cluster_name": {
+		"name":      "cluster_name",
+		"sensitive": false,
+		"value":     "products",
+	},
+	"db_password": {
+		"name":      "db_password",
+		"sensitive": true,
+		"value":     "Testing!123",
+	},
+	"db_username": {
+		"name":      "db_username",
+		"sensitive": true,
+		"value":     "postgres",
+	},
+	"google_location": {
+		"name":      "google_location",
+		"sensitive": false,
+		"value":     "us-central1-f",
+	},
+}
+
+resources = {}
