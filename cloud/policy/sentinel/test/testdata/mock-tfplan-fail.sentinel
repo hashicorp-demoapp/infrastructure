@@ -19,7 +19,7 @@ planned_values = {
 		},
 		"db_password": {
 			"name":      "db_password",
-			"sensitive": true,
+			"sensitive": false,
 			"value":     "Testing!123",
 		},
 		"db_server": {
@@ -29,7 +29,7 @@ planned_values = {
 		},
 		"db_username": {
 			"name":      "db_username",
-			"sensitive": true,
+			"sensitive": false,
 			"value":     "postgres",
 		},
 		"google_location": {

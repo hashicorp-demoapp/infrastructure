@@ -1,0 +1,15 @@
+import "tfplan"
+
+expected_sensitive_outputs = ["db_password", "db_username"]
+
+outputs = tfplan.planned_values.outputs
+
+expected_outputs_all_marked_as_sensitive = rule {
+  all expected_sensitive_outputs as sensitive_output {
+    outputs[sensitive_output].sensitive
+  }
+}
+
+main = rule {
+	expected_outputs_all_marked_as_sensitive
+}
