@@ -36,10 +36,10 @@ conftest:
 	cat tfplan.json | conftest test -p policy/ -
 
 opa-test:
-	opa test policy -f pretty -v
+	opa test policy/opa -f pretty -v
 
 opa-eval:
-	opa eval --format pretty --data policy --input tfplan.json --package main deny
+	opa eval --format pretty --data policy/opa --input tfplan.json --package main deny
 
 clean:
 	rm -f products.sql
