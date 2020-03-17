@@ -20,5 +20,6 @@ gcp_node_pools_with_tag_field_have_defined_tags = rule {
 }
 
 main = rule {
-	resources_with_tag_field_have_defined_tags and gcp_node_pools_with_tag_field_have_defined_tags
+	resources_with_tag_field_have_defined_tags and
+	gcp_node_pools_with_tag_field_have_defined_tags
 }

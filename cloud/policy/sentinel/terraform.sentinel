@@ -19,5 +19,6 @@ resource_changes_do_not_delete_protected_resources = rule {
 }
 
 main = rule {
-	expected_outputs_all_marked_as_sensitive and resource_changes_do_not_delete_protected_resources
+	expected_outputs_all_marked_as_sensitive and
+	resource_changes_do_not_delete_protected_resources
 }

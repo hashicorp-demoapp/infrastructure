@@ -18,5 +18,6 @@ database_has_conformant_password_length = rule {
 }
 
 main = rule {
-	database_only_has_non_permissive_firewall_rules and database_has_conformant_password_length
+	database_only_has_non_permissive_firewall_rules and
+	database_has_conformant_password_length
 }

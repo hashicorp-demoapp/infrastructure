@@ -7,13 +7,13 @@ resources = values(tfplan.planned_values.resources)
 google_container_clusters = filter resources as _, v { v.type is "google_container_cluster" }
 
 google_container_clusters_master_auth = func() {
-  master_auth_list = []
-  for google_container_clusters as google_container_cluster {
-    for google_container_cluster.values.master_auth as master_auth {
-      append(master_auth_list, master_auth)
-    }
-  }
-  return master_auth_list
+	master_auth_list = []
+	for google_container_clusters as google_container_cluster {
+		for google_container_cluster.values.master_auth as master_auth {
+			append(master_auth_list, master_auth)
+		}
+	}
+	return master_auth_list
 }
 
 google_container_cluster_disables_legacy_abac = rule {
@@ -23,19 +23,21 @@ google_container_cluster_disables_legacy_abac = rule {
 }
 
 google_container_cluster_does_not_have_username_or_password_defined = rule {
-  all google_container_clusters_master_auth() as master_auth {
-    length(master_auth.username) == 0 and length(master_auth.password) == 0
-  }
+	all google_container_clusters_master_auth() as master_auth {
+		length(master_auth.username) == 0 and length(master_auth.password) == 0
+	}
 }
 
 google_container_cluster_does_not_issue_client_certificate = rule {
-  all google_container_clusters_master_auth() as master_auth {
-    all master_auth.client_certificate_config as certificate_config {
-      not certificate_config.issue_client_certificate
-    }
-  }
+	all google_container_clusters_master_auth() as master_auth {
+		all master_auth.client_certificate_config as certificate_config {
+			not certificate_config.issue_client_certificate
+		}
+	}
 }
 
 main = rule {
-  google_container_cluster_disables_legacy_abac and google_container_cluster_does_not_have_username_or_password_defined and google_container_cluster_does_not_issue_client_certificate
+	google_container_cluster_disables_legacy_abac and
+	google_container_cluster_does_not_have_username_or_password_defined and
+	google_container_cluster_does_not_issue_client_certificate
 }

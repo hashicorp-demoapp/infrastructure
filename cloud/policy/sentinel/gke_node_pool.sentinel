@@ -26,5 +26,6 @@ google_container_node_pool_has_minimum_allowed_oauth_scopes = rule {
 }
 
 main = rule {
-	google_container_node_pool_does_not_scale_above_3_nodes and google_container_node_pool_has_minimum_allowed_oauth_scopes
+	google_container_node_pool_does_not_scale_above_3_nodes and
+	google_container_node_pool_has_minimum_allowed_oauth_scopes
 }
