@@ -280,6 +280,7 @@ resource_changes = {
 		"change": {
 			"actions": [
 				"create",
+				"delete",
 			],
 			"after": {
 				"charset":             "UTF8",

@@ -1,15 +1,23 @@
 import "tfplan"
 
 expected_sensitive_outputs = ["db_password", "db_username"]
+do_not_delete_these_resources = ["module.database.azurerm_postgresql_database.example"]
 
 outputs = tfplan.planned_values.outputs
+changes_to_delete_protected_resources = values(filter tfplan.resource_changes as resource, _ { do_not_delete_these_resources contains resource })
 
 expected_outputs_all_marked_as_sensitive = rule {
-  all expected_sensitive_outputs as sensitive_output {
-    outputs[sensitive_output].sensitive
-  }
+	all expected_sensitive_outputs as sensitive_output {
+		outputs[sensitive_output].sensitive
+	}
+}
+
+resource_changes_do_not_delete_protected_resources = rule {
+	all changes_to_delete_protected_resources as list_of_changes {
+		"delete" not in list_of_changes.change.actions
+	}
 }
 
 main = rule {
-	expected_outputs_all_marked_as_sensitive
+	expected_outputs_all_marked_as_sensitive and resource_changes_do_not_delete_protected_resources
 }
