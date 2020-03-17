@@ -1,0 +1,30 @@
+import "tfplan"
+
+google_container_node_pool_allowed_oauth_scopes = [
+	"https://www.googleapis.com/auth/logging.write",
+	"https://www.googleapis.com/auth/monitoring",
+]
+
+resources = values(tfplan.planned_values.resources)
+
+google_container_node_pools = filter resources as _, v { v.type is "google_container_node_pool" }
+
+google_container_node_pool_does_not_scale_above_3_nodes = rule {
+	all google_container_node_pools as node_pool {
+		all node_pool.values.autoscaling as autoscaling_config {
+			autoscaling_config.max_node_count <= 3
+		}
+	}
+}
+
+google_container_node_pool_has_minimum_allowed_oauth_scopes = rule {
+	all google_container_node_pools as node_pool {
+		all node_pool.values.node_config as node_config {
+			node_config.oauth_scopes is google_container_node_pool_allowed_oauth_scopes
+		}
+	}
+}
+
+main = rule {
+	google_container_node_pool_does_not_scale_above_3_nodes and google_container_node_pool_has_minimum_allowed_oauth_scopes
+}

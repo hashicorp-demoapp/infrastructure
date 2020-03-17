@@ -213,7 +213,7 @@ planned_values = {
 			"values": {
 				"autoscaling": [
 					{
-						"max_node_count": 3,
+						"max_node_count": 10,
 						"min_node_count": 1,
 					},
 				],
@@ -231,6 +231,7 @@ planned_values = {
 						"oauth_scopes": [
 							"https://www.googleapis.com/auth/logging.write",
 							"https://www.googleapis.com/auth/monitoring",
+							"https://www.googleapis.com/auth/fail",
 						],
 						"preemptible":    true,
 						"sandbox_config": [],
