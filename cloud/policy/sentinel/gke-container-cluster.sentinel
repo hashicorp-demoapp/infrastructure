@@ -1,4 +1,4 @@
-import "tfplan"
+import "tfplan/v2" as tfplan
 
 all_policies_passed = true
 

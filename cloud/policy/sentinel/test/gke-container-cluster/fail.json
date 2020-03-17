@@ -1,6 +1,6 @@
 {
   "mock": {
-    "tfplan": "../testdata/mock-tfplan-fail.sentinel"
+    "tfplan/v2": "../testdata/mock-tfplan-fail.sentinel"
   },
   "test": {
     "main": false

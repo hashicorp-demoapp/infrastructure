@@ -1,4 +1,4 @@
-import "tfplan"
+import "tfplan/v2" as tfplan
 
 expected_sensitive_outputs = ["db_password", "db_username"]
 do_not_delete_these_resources = ["module.database.azurerm_postgresql_database.example"]

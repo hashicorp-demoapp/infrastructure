@@ -1,5 +1,5 @@
 {
   "mock": {
-    "tfplan": "../testdata/mock-tfplan-v2.sentinel"
+    "tfplan/v2": "../testdata/mock-tfplan-v2.sentinel"
   }
 }
