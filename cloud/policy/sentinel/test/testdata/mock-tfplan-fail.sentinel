@@ -165,7 +165,7 @@ planned_values = {
 				"enable_binary_authorization": false,
 				"enable_intranode_visibility": false,
 				"enable_kubernetes_alpha":     false,
-				"enable_legacy_abac":          false,
+				"enable_legacy_abac":          true,
 				"enable_shielded_nodes":       false,
 				"enable_tpu":                  false,
 				"initial_node_count":          1,
@@ -177,7 +177,7 @@ planned_values = {
 					{
 						"client_certificate_config": [
 							{
-								"issue_client_certificate": false,
+								"issue_client_certificate": true,
 							},
 						],
 						"password": "Testing!123",
