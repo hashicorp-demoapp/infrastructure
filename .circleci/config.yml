@@ -1,7 +1,8 @@
 ---
 version: 2
 default_env: &default_env
-  BACKEND_CONFIG: da.backend
+  LOCAL_EXEC_BACKEND: local.backend
+  REMOTE_EXEC_BACKEND: remote.backend
   PLAN_FILE: /root/infrastructure/cloud/.terraform/tfplan
 
 defaults: &defaults
@@ -12,6 +13,48 @@ defaults: &defaults
     - image: joatmon08/circleci-gcp-agent:283.0-1.14.67
 
 jobs:
+  tfcloud-plan:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: initialize terraform
+          command: |
+            terraform init -backend-config=${REMOTE_EXEC_BACKEND}
+            terraform plan
+
+  tfcloud-apply:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: apply
+          command: |
+            terraform init -backend-config=${REMOTE_EXEC_BACKEND}
+            terraform apply
+
+  tfcloud-destroy:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: destroy
+          command: |
+            terraform init -backend-config=${REMOTE_EXEC_BACKEND}
+            terraform destroy -auto-approve
+
   init:
     <<: *defaults
     steps:
@@ -23,7 +66,7 @@ jobs:
       - run:
           name: initialize terraform
           command: |
-            terraform init -backend-config=${BACKEND_CONFIG}
+            terraform init -backend-config=${LOCAL_EXEC_BACKEND}
       - persist_to_workspace:
           root: /root
           paths:
@@ -82,13 +125,28 @@ jobs:
       - run:
           name: destroy
           command: |
-            terraform init -backend-config=${BACKEND_CONFIG}
+            terraform init -backend-config=${LOCAL_EXEC_BACKEND}
             terraform destroy -auto-approve
 
 workflows:
   version: 2
   demoapp-infrastructure:
     jobs:
+      - tfcloud-plan
+      - approve-tfcloud-plan:
+          type: approval
+          requires:
+            - tfcloud-plan
+      - tfcloud-apply:
+          requires:
+            - approve-tfcloud-plan
+      - approve-tfcloud-destroy:
+          type: approval
+          requires:
+            - tfcloud-apply
+      - tfcloud-destroy:
+          requires:
+            - approve-tfcloud-destroy
       - init
       - plan:
           requires:

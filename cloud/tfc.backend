@@ -1,6 +1,0 @@
-hostname = "app.terraform.io"
-organization = "hashicorp-team-da-beta"
-
-workspaces {
-  name = "hashicorp-demoapp"
-}
