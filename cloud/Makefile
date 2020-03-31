@@ -1,3 +1,9 @@
+vault-setup:
+	vault auth enable approle
+	vault secrets enable gcp
+	vault secrets enable azure
+
+
 terraform-cloud:
 ifndef TF_CLOUD_TOKEN
 	$(error TF_CLOUD_TOKEN is undefined)

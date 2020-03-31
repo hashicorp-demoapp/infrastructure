@@ -132,18 +132,24 @@ workflows:
   version: 2
   demoapp-infrastructure:
     jobs:
-      - tfcloud-plan
-      - approve-tfcloud-plan:
+      - init
+      - plan:
+          requires:
+            - init
+      - policy:
+          requires:
+            - plan
+      - approve-plan:
           type: approval
           requires:
-            - tfcloud-plan
-      - tfcloud-apply:
+            - policy
+      - apply:
           requires:
-            - approve-tfcloud-plan
-      - approve-tfcloud-destroy:
+            - approve-plan
+      - approve-destroy:
           type: approval
           requires:
-            - tfcloud-apply
-      - tfcloud-destroy:
+            - init
+      - destroy:
           requires:
-            - approve-tfcloud-destroy
+            - approve-destroy
