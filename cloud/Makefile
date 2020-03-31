@@ -1,8 +1,9 @@
 vault-setup:
 	vault auth enable approle
 	vault secrets enable gcp
+	vault write gcp/config credentials=@vault-gcp-engine.json ttl=3600 max_ttl=3600
+	vault write gcp/roleset/demoapp-roleset project="$(GOOGLE_PROJECT)" secret_type="service_account_key" bindings=@vault/gcpbindings.hcl
 	vault secrets enable azure
-
 
 terraform-cloud:
 ifndef TF_CLOUD_TOKEN
