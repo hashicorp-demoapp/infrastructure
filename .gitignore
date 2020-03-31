@@ -30,3 +30,8 @@ override.tf.json
 
 products.sql
 backend.conf
+
+# Vault Credentials for Secrets Engins
+vault-gcp-engine.json
+vault/role-id
+vault/secret-id

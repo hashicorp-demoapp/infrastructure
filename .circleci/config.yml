@@ -55,6 +55,23 @@ jobs:
             terraform init -backend-config=${REMOTE_EXEC_BACKEND}
             terraform destroy -auto-approve
 
+  secrets:
+    docker:
+    - image: vault:1.3.3
+    steps:
+      - run:
+          name: create vault files
+          command: |
+            echo $VAULT_ROLE_ID > vault/role-id
+            echo $VAULT_SECRET_ID > vault/secret-id
+      - run:
+          name: authenticate to vault
+          command: vault agent -config=vault/agent.hcl
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - vault-demoapp-infra
+
   init:
     <<: *defaults
     steps:
@@ -82,7 +99,9 @@ jobs:
           at: /root
       - run:
           name: plan
-          command: terraform plan -out=${PLAN_FILE}
+          command: |
+            export GOOGLE_CREDENTIALS=/root/service-account.json
+            terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
           paths:
@@ -112,7 +131,9 @@ jobs:
           at: /root
       - run:
           name: apply
-          command: terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
+          command: |
+            export GOOGLE_CREDENTIALS=/root/service-account.json
+            terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
   
   destroy:
     <<: *defaults
@@ -132,7 +153,10 @@ workflows:
   version: 2
   demoapp-infrastructure:
     jobs:
-      - init
+      - secrets
+      - init:
+          requires:
+            - secrets
       - plan:
           requires:
             - init
