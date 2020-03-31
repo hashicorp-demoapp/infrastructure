@@ -63,13 +63,15 @@ jobs:
       - checkout:
           path: /root/infrastructure
       - run:
-          name: create vault files
+          name: authenticate to vault
           command: |
             echo $VAULT_ROLE_ID > vault/role-id
             echo $VAULT_SECRET_ID > vault/secret-id
+            vault agent -config=vault/agent.hcl
       - run:
-          name: authenticate to vault
-          command: vault agent -config=vault/agent.hcl
+          name: check sinks
+          command: |
+            test /tmp/service-account.json
       - persist_to_workspace:
           root: /tmp
           paths:
@@ -104,9 +106,7 @@ jobs:
       - run:
           name: plan
           command: |
-            ls /root
-            cat /root/service-account.json
-            export GOOGLE_CREDENTIALS=$(cat /root/service-account.json)
+            export GOOGLE_CREDENTIALS=/root/service-account.json
             terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
@@ -138,7 +138,7 @@ jobs:
       - run:
           name: apply
           command: |
-            export GOOGLE_CLOUD_KEYFILE_JSON=/root/service-account.json
+            export GOOGLE_CREDENTIALS=/root/service-account.json
             terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
   
   destroy:
