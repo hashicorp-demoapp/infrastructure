@@ -106,7 +106,7 @@ jobs:
       - run:
           name: plan
           command: |
-            export GOOGLE_CREDENTIALS=/root/service-account.json
+            export GOOGLE_CREDENTIALS=$(cat /root/service-account.json)
             terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
@@ -138,7 +138,7 @@ jobs:
       - run:
           name: apply
           command: |
-            export GOOGLE_CREDENTIALS=/root/service-account.json
+            export GOOGLE_CREDENTIALS=$(cat /root/service-account.json)
             terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
   
   destroy:
