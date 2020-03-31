@@ -104,7 +104,9 @@ jobs:
       - run:
           name: plan
           command: |
-            export GOOGLE_CLOUD_KEYFILE_JSON=/root/service-account.json
+            ls /root
+            cat /root/service-account.json
+            export GOOGLE_CREDENTIALS=$(cat /root/service-account.json)
             terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
