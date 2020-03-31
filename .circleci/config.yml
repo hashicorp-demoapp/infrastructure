@@ -56,9 +56,12 @@ jobs:
             terraform destroy -auto-approve
 
   secrets:
+    working_directory: /root/infrastructure/cloud
     docker:
     - image: vault:1.3.3
     steps:
+      - checkout:
+          path: /root/infrastructure
       - run:
           name: create vault files
           command: |
@@ -71,6 +74,7 @@ jobs:
           root: /tmp
           paths:
             - vault-demoapp-infra
+            - service-account.json
 
   init:
     <<: *defaults
