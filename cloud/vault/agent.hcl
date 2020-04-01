@@ -19,7 +19,7 @@ auto_auth {
 template {
   contents = <<EOF
     {{ with secret "gcp/key/demoapp-infra" }}
-    {{ .Data.data.private_key_data | base64Decode }}
+    {{ .Data.private_key_data | base64Decode }}
     {{ end }}
   EOF
   destination = "/tmp/service-account.json"
