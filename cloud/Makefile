@@ -2,10 +2,10 @@ vault-setup:
 	vault policy write demoapp-infra vault/policy.hcl
 	
 	vault auth enable approle
-	vault write auth/approle/role/demoapp-infra secret_id_ttl=60m token_num_uses=10 token_policies=demoapp-infra token_ttl=60m token_max_ttl=60m secret_id_num_uses=40
+	vault write auth/approle/role/demoapp-infra secret_id_ttl=60m token_num_uses=10 token_policies=demoapp-infra token_ttl=60m token_max_ttl=60m secret_id_num_uses=0
 	
 	vault secrets enable gcp
-	vault write gcp/config credentials=@vault-gcp-engine.json ttl=30m max_ttl=60m
+	vault write gcp/config credentials=@vault-gcp-engine.json ttl=10m max_ttl=30m
 	vault write gcp/roleset/demoapp-infra project="${GOOGLE_PROJECT}" secret_type="service_account_key" bindings=@vault/gcpbindings.hcl
 	
 	vault secrets enable azure
