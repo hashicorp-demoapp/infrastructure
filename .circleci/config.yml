@@ -102,7 +102,7 @@ jobs:
       - run:
           name: plan
           command: |
-            export GOOGLE_CREDENTIALS=$(cat /root/service-account.json)
+            export GOOGLE_CREDENTIALS=/root/service-account.json
             terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
@@ -134,7 +134,7 @@ jobs:
       - run:
           name: apply
           command: |
-            export GOOGLE_CREDENTIALS=$(cat /root/service-account.json)
+            export GOOGLE_CREDENTIALS=/root/service-account.json
             terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
   
   destroy:
@@ -142,14 +142,11 @@ jobs:
     steps:
       - checkout:
           path: /root/infrastructure
-      - run:
-          name: set terraform cloud token
-          command: make terraform-cloud
+      - attach_workspace:
+          at: /root
       - run:
           name: destroy
-          command: |
-            terraform init -backend-config=${LOCAL_EXEC_BACKEND}
-            terraform destroy -auto-approve
+          command: terraform destroy -auto-approve
 
 workflows:
   version: 2
