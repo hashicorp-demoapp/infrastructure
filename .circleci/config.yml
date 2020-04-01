@@ -4,6 +4,7 @@ default_env: &default_env
   LOCAL_EXEC_BACKEND: local.backend
   REMOTE_EXEC_BACKEND: remote.backend
   PLAN_FILE: /root/infrastructure/cloud/.terraform/tfplan
+  GOOGLE_CREDENTIALS: /root/service-account.json
 
 defaults: &defaults
   working_directory: /root/infrastructure/cloud
@@ -101,9 +102,7 @@ jobs:
           at: /root
       - run:
           name: plan
-          command: |
-            export GOOGLE_CREDENTIALS=/root/service-account.json
-            terraform plan -out=${PLAN_FILE}
+          command: terraform plan -out=${PLAN_FILE}
       - persist_to_workspace:
           root: /root
           paths:
@@ -133,9 +132,7 @@ jobs:
           at: /root
       - run:
           name: apply
-          command: |
-            export GOOGLE_CREDENTIALS=/root/service-account.json
-            terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
+          command: terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
   
   destroy:
     <<: *defaults
