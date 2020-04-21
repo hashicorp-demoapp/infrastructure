@@ -1,0 +1,175 @@
+---
+version: 2
+default_env: &default_env
+  LOCAL_EXEC_BACKEND: local.backend
+  REMOTE_EXEC_BACKEND: remote.backend
+  PLAN_FILE: /root/infrastructure/cloud/.terraform/tfplan
+  GOOGLE_CREDENTIALS: /root/service-account.json
+
+defaults: &defaults
+  working_directory: /root/infrastructure/cloud
+  environment:
+    <<: *default_env
+  docker:
+    - image: joatmon08/circleci-gcp-agent:283.0-1.14.67
+
+jobs:
+  tfcloud-plan:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: initialize terraform
+          command: |
+            terraform init -backend-config=${REMOTE_EXEC_BACKEND}
+            terraform plan
+
+  tfcloud-apply:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: apply
+          command: |
+            terraform init -backend-config=${REMOTE_EXEC_BACKEND}
+            terraform apply
+
+  tfcloud-destroy:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: destroy
+          command: |
+            terraform init -backend-config=${REMOTE_EXEC_BACKEND}
+            terraform destroy -auto-approve
+
+  secrets:
+    working_directory: /root/infrastructure/cloud
+    docker:
+    - image: vault:1.3.3
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: authenticate to vault
+          command: |
+            echo $VAULT_ROLE_ID > vault/role-id
+            echo $VAULT_SECRET_ID > vault/secret-id
+            vault agent -config=vault/agent.hcl
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - vault-demoapp-infra
+            - service-account.json
+
+  init:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - run:
+          name: set terraform cloud token
+          command: make terraform-cloud
+      - run:
+          name: initialize terraform
+          command: |
+            terraform init -backend-config=${LOCAL_EXEC_BACKEND}
+      - persist_to_workspace:
+          root: /root
+          paths:
+            - .terraformrc
+            - infrastructure/cloud/.terraform
+
+  plan:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: plan
+          command: terraform plan -out=${PLAN_FILE}
+      - persist_to_workspace:
+          root: /root
+          paths:
+            - .terraformrc
+            - infrastructure/cloud/.terraform
+
+  policy:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: create JSON plan
+          command: terraform show -json ${PLAN_FILE} > tfplan.json
+      - run:
+          name: check configuration for security or policy issues
+          command: make opa-eval
+
+  apply:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: apply
+          command: terraform apply -auto-approve "/root/infrastructure/cloud/.terraform/tfplan"
+  
+  destroy:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: /root/infrastructure
+      - attach_workspace:
+          at: /root
+      - run:
+          name: destroy
+          command: terraform destroy -auto-approve
+
+workflows:
+  version: 2
+  demoapp-infrastructure:
+    jobs:
+      - secrets
+      - init:
+          requires:
+            - secrets
+      - plan:
+          requires:
+            - init
+      - policy:
+          requires:
+            - plan
+      - approve-plan:
+          type: approval
+          requires:
+            - policy
+      - apply:
+          requires:
+            - approve-plan
+      - approve-destroy:
+          type: approval
+          requires:
+            - init
+      - destroy:
+          requires:
+            - approve-destroy

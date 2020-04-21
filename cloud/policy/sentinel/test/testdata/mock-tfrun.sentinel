@@ -1,0 +1,72 @@
+import "strings"
+import "types"
+
+created_at = "2020-03-10T17:21:26.955Z"
+message = "Queued manually in Terraform Cloud"
+speculative = false
+is_destroy = false
+
+variables = {
+	"ARM_CLIENT_ID": {
+		"category":  "env",
+		"sensitive": true,
+	},
+	"ARM_CLIENT_SECRET": {
+		"category":  "env",
+		"sensitive": true,
+	},
+	"ARM_SUBSCRIPTION_ID": {
+		"category":  "env",
+		"sensitive": true,
+	},
+	"ARM_TENANT_ID": {
+		"category":  "env",
+		"sensitive": true,
+	},
+	"CONFIRM_DESTROY": {
+		"category":  "env",
+		"sensitive": false,
+	},
+	"GOOGLE_CREDENTIALS": {
+		"category":  "env",
+		"sensitive": true,
+	},
+	"azure": {
+		"category":  "terraform",
+		"sensitive": false,
+	},
+	"db_password": {
+		"category":  "terraform",
+		"sensitive": true,
+	},
+	"db_username": {
+		"category":  "terraform",
+		"sensitive": true,
+	},
+	"gcp": {
+		"category":  "terraform",
+		"sensitive": false,
+	},
+	"service": {
+		"category":  "terraform",
+		"sensitive": false,
+	},
+}
+
+organization = {
+	"name": "hashicorp-team-da-beta",
+}
+
+workspace = {
+	"auto_apply":  false,
+	"created_at":  "2020-03-05T16:44:20.177Z",
+	"description": null,
+	"name":        "hashicorp-demoapp",
+	"vcs_repo": {
+		"branch":             "",
+		"display_identifier": "joatmon08/infrastructure",
+		"identifier":         "joatmon08/infrastructure",
+		"ingress_submodules": false,
+	},
+	"working_directory": "cloud",
+}

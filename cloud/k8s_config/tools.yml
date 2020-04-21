@@ -1,0 +1,50 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-setup
+  labels:
+    app: vault-setup
+spec:
+  template:
+    metadata:
+      labels:
+        app: vault-setup
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: shipyard
+        image: shipyardrun/tools:latest
+        command: ["bash", "/etc/setup/setup_vault.sh"]
+        env:
+          - name: VAULT_ADDR
+            value: "http://vault:8200"
+          - name: VAULT_TOKEN
+            value: "root"
+          - name: PGHOST
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: host
+          - name: PGUSER
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: user
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: password
+        volumeMounts:
+          - name: setup
+            mountPath: /etc/setup
+      volumes:
+        - name: setup
+          configMap:
+            name: setup
+            items:
+              - key: setup_vault.sh
+                path: setup_vault.sh
+              - key: products_policy.hcl
+                path: products_policy.hcl

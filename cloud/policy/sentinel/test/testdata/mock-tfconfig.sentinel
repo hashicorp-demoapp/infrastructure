@@ -1,0 +1,533 @@
+import "strings"
+import "types"
+
+_modules = {
+	"root": {
+		"data": {},
+		"modules": {
+			"database": {
+				"config": {},
+				"references": {
+					"location": [
+						"var.azure",
+					],
+					"name": [
+						"var.service",
+					],
+					"password": [
+						"var.db_password",
+					],
+					"username": [
+						"var.db_username",
+					],
+				},
+				"source":  "./azure_db",
+				"version": "",
+			},
+			"kubernetes": {
+				"config": {
+					"username": "admin",
+				},
+				"references": {
+					"cluster_name": [
+						"var.service",
+					],
+					"google_project": [
+						"var.gcp",
+					],
+					"location": [
+						"var.gcp",
+					],
+					"password": [
+						"var.db_password",
+					],
+					"username": [],
+				},
+				"source":  "./gcp_k8s",
+				"version": "",
+			},
+		},
+		"outputs": {
+			"cluster_name": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"var.service",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+			"db_endpoint": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"module.database.endpoint",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+			"db_name": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"module.database.name",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+			"db_password": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"var.db_password",
+				],
+				"sensitive": true,
+				"value":     undefined,
+			},
+			"db_server": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"module.database.server",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+			"db_username": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"var.db_username",
+				],
+				"sensitive": true,
+				"value":     undefined,
+			},
+			"google_location": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"var.gcp",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+		},
+		"providers": {
+			"azurerm": {
+				"alias": {
+					"": {
+						"config": {
+							"features": [
+								{},
+							],
+						},
+						"references": {
+							"features": [
+								{},
+							],
+						},
+						"version": "~> 2.0",
+					},
+				},
+				"config": {
+					"features": [
+						{},
+					],
+				},
+				"references": {
+					"features": [
+						{},
+					],
+				},
+				"version": "~> 2.0",
+			},
+			"google": {
+				"alias": {
+					"": {
+						"config": {},
+						"references": {
+							"project": [
+								"var.gcp",
+							],
+						},
+						"version": "~> 3.10",
+					},
+				},
+				"config": {},
+				"references": {
+					"project": [
+						"var.gcp",
+					],
+				},
+				"version": "~> 3.10",
+			},
+			"google-beta": {
+				"alias": {
+					"": {
+						"config": {},
+						"references": {
+							"project": [
+								"var.gcp",
+							],
+						},
+						"version": "~> 3.12",
+					},
+				},
+				"config": {},
+				"references": {
+					"project": [
+						"var.gcp",
+					],
+				},
+				"version": "~> 3.12",
+			},
+		},
+		"resources": {},
+		"variables": {
+			"azure": {
+				"default": {
+					"location": "",
+				},
+				"description": "",
+			},
+			"db_password": {
+				"default":     null,
+				"description": "",
+			},
+			"db_username": {
+				"default":     null,
+				"description": "",
+			},
+			"gcp": {
+				"default": {
+					"location": "",
+					"project":  "",
+				},
+				"description": "",
+			},
+			"service": {
+				"default":     null,
+				"description": "",
+			},
+		},
+	},
+
+	"module.database": {
+		"data":    {},
+		"modules": {},
+		"outputs": {
+			"endpoint": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"azurerm_postgresql_server.example",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+			"name": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"azurerm_postgresql_database.example",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+			"server": {
+				"depends_on":  [],
+				"description": "",
+				"references": [
+					"azurerm_postgresql_server.example",
+				],
+				"sensitive": false,
+				"value":     undefined,
+			},
+		},
+		"providers": {},
+		"resources": {
+			"azurerm_postgresql_database": {
+				"example": {
+					"config": {
+						"charset":   "UTF8",
+						"collation": "English_United States.1252",
+					},
+					"provisioners": null,
+					"references": {
+						"charset":   [],
+						"collation": [],
+						"name": [
+							"var.name",
+						],
+						"resource_group_name": [
+							"azurerm_resource_group.example",
+						],
+						"server_name": [
+							"azurerm_postgresql_server.example",
+						],
+					},
+				},
+			},
+			"azurerm_postgresql_firewall_rule": {
+				"example": {
+					"config": {
+						"end_ip_address":   "255.255.255.255",
+						"start_ip_address": "0.0.0.0",
+					},
+					"provisioners": null,
+					"references": {
+						"end_ip_address": [],
+						"name": [
+							"var.name",
+						],
+						"resource_group_name": [
+							"azurerm_resource_group.example",
+						],
+						"server_name": [
+							"azurerm_postgresql_server.example",
+						],
+						"start_ip_address": [],
+					},
+				},
+			},
+			"azurerm_postgresql_server": {
+				"example": {
+					"config": {
+						"sku_name":        "B_Gen5_2",
+						"ssl_enforcement": "Enabled",
+						"storage_profile": [
+							{
+								"backup_retention_days": 7,
+								"geo_redundant_backup":  "Disabled",
+								"storage_mb":            5120,
+							},
+						],
+						"version": "11",
+					},
+					"provisioners": null,
+					"references": {
+						"administrator_login": [
+							"var.username",
+						],
+						"administrator_login_password": [
+							"var.password",
+						],
+						"location": [
+							"azurerm_resource_group.example",
+						],
+						"name": [
+							"var.name",
+						],
+						"resource_group_name": [
+							"azurerm_resource_group.example",
+						],
+						"sku_name":        [],
+						"ssl_enforcement": [],
+						"storage_profile": [
+							{
+								"backup_retention_days": [],
+								"geo_redundant_backup":  [],
+								"storage_mb":            [],
+							},
+						],
+						"version": [],
+					},
+				},
+			},
+			"azurerm_resource_group": {
+				"example": {
+					"config":       {},
+					"provisioners": null,
+					"references": {
+						"location": [
+							"var.location",
+						],
+						"name": [
+							"var.name",
+						],
+					},
+				},
+			},
+		},
+		"variables": {
+			"location": {
+				"default":     null,
+				"description": "Azure region",
+			},
+			"name": {
+				"default":     null,
+				"description": "Name of database and server",
+			},
+			"password": {
+				"default":     null,
+				"description": "Database password",
+			},
+			"username": {
+				"default":     null,
+				"description": "Database username",
+			},
+		},
+	},
+
+	"module.kubernetes": {
+		"data":      {},
+		"modules":   {},
+		"outputs":   {},
+		"providers": {},
+		"resources": {
+			"google_container_cluster": {
+				"engineering": {
+					"config": {
+						"initial_node_count": 1,
+						"master_auth": [
+							{
+								"client_certificate_config": [
+									{
+										"issue_client_certificate": false,
+									},
+								],
+							},
+						],
+						"remove_default_node_pool": true,
+					},
+					"provisioners": null,
+					"references": {
+						"initial_node_count": [],
+						"location": [
+							"var.location",
+						],
+						"master_auth": [
+							{
+								"client_certificate_config": [
+									{
+										"issue_client_certificate": [],
+									},
+								],
+								"password": [
+									"var.password",
+								],
+								"username": [
+									"var.username",
+								],
+							},
+						],
+						"name": [
+							"var.cluster_name",
+						],
+						"remove_default_node_pool": [],
+					},
+				},
+			},
+			"google_container_node_pool": {
+				"engineering_preemptible_nodes": {
+					"config": {
+						"autoscaling": [
+							{
+								"max_node_count": 3,
+								"min_node_count": 1,
+							},
+						],
+						"node_config": [
+							{
+								"machine_type": "n1-standard-1",
+								"metadata": {
+									"disable-legacy-endpoints": "true",
+								},
+								"oauth_scopes": [
+									"https://www.googleapis.com/auth/logging.write",
+									"https://www.googleapis.com/auth/monitoring",
+								],
+								"preemptible": true,
+							},
+						],
+						"node_count": 1,
+					},
+					"provisioners": null,
+					"references": {
+						"autoscaling": [
+							{
+								"max_node_count": [],
+								"min_node_count": [],
+							},
+						],
+						"cluster": [
+							"google_container_cluster.engineering",
+						],
+						"location": [
+							"var.location",
+						],
+						"name": [
+							"var.cluster_name",
+						],
+						"node_config": [
+							{
+								"machine_type": [],
+								"metadata":     [],
+								"oauth_scopes": [],
+								"preemptible":  [],
+							},
+						],
+						"node_count": [],
+					},
+				},
+			},
+		},
+		"variables": {
+			"cluster_name": {
+				"default":     null,
+				"description": "Name of cluster",
+			},
+			"google_project": {
+				"default":     null,
+				"description": "Google project to deploy cluster",
+			},
+			"location": {
+				"default":     null,
+				"description": "Google region to deploy cluster",
+			},
+			"password": {
+				"default":     "",
+				"description": "password for cluster",
+			},
+			"username": {
+				"default":     "",
+				"description": "username for cluster",
+			},
+		},
+	},
+}
+
+module_paths = [
+	[],
+	[
+		"database",
+	],
+	[
+		"kubernetes",
+	],
+]
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+modules = _modules.root.modules
+providers = _modules.root.providers
+resources = _modules.root.resources
+variables = _modules.root.variables
+outputs = _modules.root.outputs

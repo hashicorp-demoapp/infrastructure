@@ -1,0 +1,23 @@
+import "tfplan/v2" as tfplan
+
+resources = values(tfplan.planned_values.resources)
+
+database_firewall_rules = filter resources as _, v { v.type is "azurerm_postgresql_firewall_rule" }
+database_servers = filter resources as _, v { v.type is "azurerm_postgresql_server" }
+
+database_only_has_non_permissive_firewall_rules = rule {
+	all database_firewall_rules as firewall_rule {
+		firewall_rule.values.start_ip_address is not "0.0.0.0" and firewall_rule.values.end_ip_address is not "255.255.255.255"
+	}
+}
+
+database_has_conformant_password_length = rule {
+	all database_servers as database_server {
+		length(database_server.values.administrator_login_password) > 8 and length(database_server.values.administrator_login_password) < 128
+	}
+}
+
+main = rule {
+	database_only_has_non_permissive_firewall_rules and
+	database_has_conformant_password_length
+}

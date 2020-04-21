@@ -27,3 +27,11 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+
+products.sql
+backend.conf
+
+# Vault Credentials for Secrets Engins
+vault-gcp-engine.json
+vault/role-id
+vault/secret-id

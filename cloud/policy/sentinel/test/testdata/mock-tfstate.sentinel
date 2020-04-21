@@ -1,0 +1,61 @@
+import "strings"
+import "types"
+
+outputs = {
+	"cluster_name": {
+		"sensitive": false,
+		"type":      "string",
+		"value":     "products",
+	},
+	"db_password": {
+		"sensitive": true,
+		"type":      "string",
+		"value":     "Testing!123",
+	},
+	"db_username": {
+		"sensitive": true,
+		"type":      "string",
+		"value":     "postgres",
+	},
+	"google_location": {
+		"sensitive": false,
+		"type":      "string",
+		"value":     "us-central1-f",
+	},
+}
+
+_modules = {
+	"root": {
+		"data":      {},
+		"path":      [],
+		"resources": {},
+	},
+}
+
+module_paths = [
+	[],
+]
+
+terraform_version = "0.12.23"
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+path = _modules.root.path
+resources = _modules.root.resources

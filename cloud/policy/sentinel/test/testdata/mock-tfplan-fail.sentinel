@@ -1,0 +1,1746 @@
+terraform_version = "0.12.23"
+
+planned_values = {
+	"outputs": {
+		"cluster_name": {
+			"name":      "cluster_name",
+			"sensitive": false,
+			"value":     "products",
+		},
+		"db_endpoint": {
+			"name":      "db_endpoint",
+			"sensitive": false,
+			"value":     undefined,
+		},
+		"db_name": {
+			"name":      "db_name",
+			"sensitive": false,
+			"value":     "products",
+		},
+		"db_password": {
+			"name":      "db_password",
+			"sensitive": false,
+			"value":     "Testing!123",
+		},
+		"db_server": {
+			"name":      "db_server",
+			"sensitive": false,
+			"value":     "products-postgres-server",
+		},
+		"db_username": {
+			"name":      "db_username",
+			"sensitive": false,
+			"value":     "postgres",
+		},
+		"google_location": {
+			"name":      "google_location",
+			"sensitive": false,
+			"value":     "us-central1-f",
+		},
+	},
+	"resources": {
+		"module.database.azurerm_postgresql_database.example": {
+			"address":        "module.database.azurerm_postgresql_database.example",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"tainted":        false,
+			"type":           "azurerm_postgresql_database",
+			"values": {
+				"charset":             "UTF8",
+				"collation":           "English_United States.1252",
+				"name":                "products",
+				"resource_group_name": "products",
+				"server_name":         "products-postgres-server",
+				"timeouts":            null,
+			},
+		},
+		"module.database.azurerm_postgresql_firewall_rule.example": {
+			"address":        "module.database.azurerm_postgresql_firewall_rule.example",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"tainted":        false,
+			"type":           "azurerm_postgresql_firewall_rule",
+			"values": {
+				"end_ip_address":      "255.255.255.255",
+				"name":                "products",
+				"resource_group_name": "products",
+				"server_name":         "products-postgres-server",
+				"start_ip_address":    "0.0.0.0",
+				"timeouts":            null,
+			},
+		},
+		"module.database.azurerm_postgresql_firewall_rule.example2": {
+			"address":        "module.database.azurerm_postgresql_firewall_rule.example2",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example2",
+			"provider_name":  "azurerm",
+			"tainted":        false,
+			"type":           "azurerm_postgresql_firewall_rule",
+			"values": {
+				"end_ip_address":      "172.0.0.0",
+				"name":                "products",
+				"resource_group_name": "products",
+				"server_name":         "products-postgres-server",
+				"start_ip_address":    "172.0.0.0",
+				"timeouts":            null,
+			},
+		},
+		"module.database.azurerm_postgresql_server.example": {
+			"address":        "module.database.azurerm_postgresql_server.example",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"tainted":        false,
+			"type":           "azurerm_postgresql_server",
+			"values": {
+				"administrator_login":          "postgres",
+				"administrator_login_password": "adf",
+				"location":                     "centralus",
+				"name":                         "products-postgres-server",
+				"resource_group_name":          "products",
+				"sku_name":                     "B_Gen5_2",
+				"ssl_enforcement":              "Enabled",
+				"storage_profile": [
+					{
+						"auto_grow":             "Enabled",
+						"backup_retention_days": 7,
+						"geo_redundant_backup":  "Disabled",
+						"storage_mb":            5120,
+					},
+				],
+				"tags":     null,
+				"timeouts": null,
+				"version":  "11",
+			},
+		},
+		"module.database.azurerm_resource_group.example": {
+			"address":        "module.database.azurerm_resource_group.example",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"tainted":        false,
+			"type":           "azurerm_resource_group",
+			"values": {
+				"location": "centralus",
+				"name":     "products",
+				"tags":     null,
+				"timeouts": null,
+			},
+		},
+		"module.kubernetes.google_container_cluster.engineering": {
+			"address":        "module.kubernetes.google_container_cluster.engineering",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.kubernetes",
+			"name":           "engineering",
+			"provider_name":  "google-beta",
+			"tainted":        false,
+			"type":           "google_container_cluster",
+			"values": {
+				"description":                 null,
+				"enable_binary_authorization": false,
+				"enable_intranode_visibility": false,
+				"enable_kubernetes_alpha":     false,
+				"enable_legacy_abac":          true,
+				"enable_shielded_nodes":       false,
+				"enable_tpu":                  false,
+				"initial_node_count":          1,
+				"ip_allocation_policy":        [],
+				"location":                    "us-central1-f",
+				"logging_service":             "logging.googleapis.com/kubernetes",
+				"maintenance_policy":          [],
+				"master_auth": [
+					{
+						"client_certificate_config": [
+							{
+								"issue_client_certificate": true,
+							},
+						],
+						"password": "Testing!123",
+						"username": "admin",
+					},
+				],
+				"master_authorized_networks_config": [],
+				"min_master_version":                null,
+				"monitoring_service":                "monitoring.googleapis.com/kubernetes",
+				"name":                              "products",
+				"network":                           "default",
+				"pod_security_policy_config":        [],
+				"private_cluster_config":            [],
+				"remove_default_node_pool":          true,
+				"resource_labels":                   null,
+				"resource_usage_export_config":      [],
+				"timeouts":                          null,
+				"vertical_pod_autoscaling":          [],
+				"workload_identity_config":          [],
+			},
+		},
+		"module.kubernetes.google_container_node_pool.engineering_preemptible_nodes": {
+			"address":        "module.kubernetes.google_container_node_pool.engineering_preemptible_nodes",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.kubernetes",
+			"name":           "engineering_preemptible_nodes",
+			"provider_name":  "google-beta",
+			"tainted":        false,
+			"type":           "google_container_node_pool",
+			"values": {
+				"autoscaling": [
+					{
+						"max_node_count": 10,
+						"min_node_count": 1,
+					},
+				],
+				"cluster":  "products",
+				"location": "us-central1-f",
+				"name":     "products-node-pool",
+				"node_config": [
+					{
+						"boot_disk_kms_key": null,
+						"machine_type":      "n1-standard-1",
+						"metadata": {
+							"disable-legacy-endpoints": "true",
+						},
+						"min_cpu_platform": null,
+						"oauth_scopes": [
+							"https://www.googleapis.com/auth/logging.write",
+							"https://www.googleapis.com/auth/monitoring",
+							"https://www.googleapis.com/auth/fail",
+						],
+						"preemptible":    true,
+						"sandbox_config": [],
+						"tags":           null,
+						"workload_metadata_config": [],
+					},
+				],
+				"node_count":       1,
+				"timeouts":         null,
+				"upgrade_settings": [],
+			},
+		},
+	},
+}
+
+variables = {
+	"azure": {
+		"name": "azure",
+		"value": {
+			"location": "Central US",
+		},
+	},
+	"db_password": {
+		"name":  "db_password",
+		"value": "Testing!123",
+	},
+	"db_username": {
+		"name":  "db_username",
+		"value": "postgres",
+	},
+	"gcp": {
+		"name": "gcp",
+		"value": {
+			"location": "us-central1-f",
+			"project":  "hc-da-test",
+		},
+	},
+	"service": {
+		"name":  "service",
+		"value": "products",
+	},
+}
+
+resource_changes = {
+	"module.database.azurerm_postgresql_database.example": {
+		"address": "module.database.azurerm_postgresql_database.example",
+		"change": {
+			"actions": [
+				"create",
+				"delete",
+			],
+			"after": {
+				"charset":             "UTF8",
+				"collation":           "English_United States.1252",
+				"name":                "products",
+				"resource_group_name": "products",
+				"server_name":         "products-postgres-server",
+				"timeouts":            null,
+			},
+			"after_unknown": {
+				"id": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.database",
+		"name":           "example",
+		"provider_name":  "azurerm",
+		"type":           "azurerm_postgresql_database",
+	},
+	"module.database.azurerm_postgresql_firewall_rule.example": {
+		"address": "module.database.azurerm_postgresql_firewall_rule.example",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"end_ip_address":      "255.255.255.255",
+				"name":                "products",
+				"resource_group_name": "products",
+				"server_name":         "products-postgres-server",
+				"start_ip_address":    "0.0.0.0",
+				"timeouts":            null,
+			},
+			"after_unknown": {
+				"id": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.database",
+		"name":           "example",
+		"provider_name":  "azurerm",
+		"type":           "azurerm_postgresql_firewall_rule",
+	},
+	"module.database.azurerm_postgresql_server.example": {
+		"address": "module.database.azurerm_postgresql_server.example",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"administrator_login":          "postgres",
+				"administrator_login_password": "Testing!123",
+				"location":                     "centralus",
+				"name":                         "products-postgres-server",
+				"resource_group_name":          "products",
+				"sku_name":                     "B_Gen5_2",
+				"ssl_enforcement":              "Enabled",
+				"storage_profile": [
+					{
+						"auto_grow":             "Enabled",
+						"backup_retention_days": 7,
+						"geo_redundant_backup":  "Disabled",
+						"storage_mb":            5120,
+					},
+				],
+				"tags":     null,
+				"timeouts": null,
+				"version":  "11",
+			},
+			"after_unknown": {
+				"fqdn": true,
+				"id":   true,
+				"storage_profile": [
+					{},
+				],
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.database",
+		"name":           "example",
+		"provider_name":  "azurerm",
+		"type":           "azurerm_postgresql_server",
+	},
+	"module.database.azurerm_resource_group.example": {
+		"address": "module.database.azurerm_resource_group.example",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"location": "centralus",
+				"name":     "products",
+				"tags":     null,
+				"timeouts": null,
+			},
+			"after_unknown": {
+				"id": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.database",
+		"name":           "example",
+		"provider_name":  "azurerm",
+		"type":           "azurerm_resource_group",
+	},
+	"module.kubernetes.google_container_cluster.engineering": {
+		"address": "module.kubernetes.google_container_cluster.engineering",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"description":                 null,
+				"enable_binary_authorization": false,
+				"enable_intranode_visibility": false,
+				"enable_kubernetes_alpha":     false,
+				"enable_legacy_abac":          false,
+				"enable_shielded_nodes":       false,
+				"enable_tpu":                  false,
+				"initial_node_count":          1,
+				"ip_allocation_policy":        [],
+				"location":                    "us-central1-f",
+				"logging_service":             "logging.googleapis.com/kubernetes",
+				"maintenance_policy":          [],
+				"master_auth": [
+					{
+						"client_certificate_config": [
+							{
+								"issue_client_certificate": false,
+							},
+						],
+						"password": "Testing!123",
+						"username": "admin",
+					},
+				],
+				"master_authorized_networks_config": [],
+				"min_master_version":                null,
+				"monitoring_service":                "monitoring.googleapis.com/kubernetes",
+				"name":                              "products",
+				"network":                           "default",
+				"pod_security_policy_config":        [],
+				"private_cluster_config":            [],
+				"remove_default_node_pool":          true,
+				"resource_labels":                   null,
+				"resource_usage_export_config":      [],
+				"timeouts":                          null,
+				"vertical_pod_autoscaling":          [],
+				"workload_identity_config":          [],
+			},
+			"after_unknown": {
+				"additional_zones":            true,
+				"addons_config":               true,
+				"authenticator_groups_config": true,
+				"cluster_autoscaling":         true,
+				"cluster_ipv4_cidr":           true,
+				"database_encryption":         true,
+				"default_max_pods_per_node":   true,
+				"endpoint":                    true,
+				"id":                          true,
+				"instance_group_urls":  true,
+				"ip_allocation_policy": [],
+				"label_fingerprint":    true,
+				"maintenance_policy":   [],
+				"master_auth": [
+					{
+						"client_certificate": true,
+						"client_certificate_config": [
+							{},
+						],
+						"client_key":             true,
+						"cluster_ca_certificate": true,
+					},
+				],
+				"master_authorized_networks_config": [],
+				"master_version":                    true,
+				"network_policy":                    true,
+				"node_config":                       true,
+				"node_locations":                    true,
+				"node_pool":                         true,
+				"node_version":                      true,
+				"operation":                         true,
+				"pod_security_policy_config":        [],
+				"private_cluster_config":            [],
+				"project":                           true,
+				"region":                            true,
+				"release_channel":                   true,
+				"resource_usage_export_config":      [],
+				"services_ipv4_cidr":                true,
+				"subnetwork":                        true,
+				"tpu_ipv4_cidr_block":               true,
+				"vertical_pod_autoscaling":          [],
+				"workload_identity_config":          [],
+				"zone": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.kubernetes",
+		"name":           "engineering",
+		"provider_name":  "google-beta",
+		"type":           "google_container_cluster",
+	},
+	"module.kubernetes.google_container_node_pool.engineering_preemptible_nodes": {
+		"address": "module.kubernetes.google_container_node_pool.engineering_preemptible_nodes",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"autoscaling": [
+					{
+						"max_node_count": 3,
+						"min_node_count": 1,
+					},
+				],
+				"cluster":  "products",
+				"location": "us-central1-f",
+				"name":     "products-node-pool",
+				"node_config": [
+					{
+						"boot_disk_kms_key": null,
+						"machine_type":      "n1-standard-1",
+						"metadata": {
+							"disable-legacy-endpoints": "true",
+						},
+						"min_cpu_platform": null,
+						"oauth_scopes": [
+							"https://www.googleapis.com/auth/logging.write",
+							"https://www.googleapis.com/auth/monitoring",
+						],
+						"preemptible":    true,
+						"sandbox_config": [],
+						"tags":           null,
+						"workload_metadata_config": [],
+					},
+				],
+				"node_count":       1,
+				"timeouts":         null,
+				"upgrade_settings": [],
+			},
+			"after_unknown": {
+				"autoscaling": [
+					{},
+				],
+				"id":                  true,
+				"initial_node_count":  true,
+				"instance_group_urls": true,
+				"management":          true,
+				"max_pods_per_node":   true,
+				"name_prefix":         true,
+				"node_config": [
+					{
+						"disk_size_gb":      true,
+						"disk_type":         true,
+						"guest_accelerator": true,
+						"image_type":        true,
+						"labels":            true,
+						"local_ssd_count":   true,
+						"metadata":          {},
+						"oauth_scopes": [
+							false,
+							false,
+						],
+						"sandbox_config":           [],
+						"service_account":          true,
+						"shielded_instance_config": true,
+						"taint":                    true,
+						"workload_metadata_config": [],
+					},
+				],
+				"node_locations":   true,
+				"project":          true,
+				"region":           true,
+				"upgrade_settings": [],
+				"version":          true,
+				"zone":             true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.kubernetes",
+		"name":           "engineering_preemptible_nodes",
+		"provider_name":  "google-beta",
+		"type":           "google_container_node_pool",
+	},
+}
+
+output_changes = {
+	"cluster_name": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "products",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "cluster_name",
+	},
+	"db_endpoint": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         undefined,
+			"after_unknown": true,
+			"before":        null,
+		},
+		"name": "db_endpoint",
+	},
+	"db_name": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "products",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "db_name",
+	},
+	"db_password": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "Testing!123",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "db_password",
+	},
+	"db_server": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "products-postgres-server",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "db_server",
+	},
+	"db_username": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "postgres",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "db_username",
+	},
+	"google_location": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "us-central1-f",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "google_location",
+	},
+}
+
+raw = {
+	"configuration": {
+		"provider_config": {
+			"azurerm": {
+				"expressions": {
+					"features": [
+						{},
+					],
+				},
+				"name":               "azurerm",
+				"version_constraint": "~> 2.0",
+			},
+			"google": {
+				"expressions": {
+					"project": {
+						"references": [
+							"var.gcp",
+						],
+					},
+				},
+				"name":               "google",
+				"version_constraint": "~> 3.10",
+			},
+			"google-beta": {
+				"expressions": {
+					"project": {
+						"references": [
+							"var.gcp",
+						],
+					},
+				},
+				"name":               "google-beta",
+				"version_constraint": "~> 3.12",
+			},
+		},
+		"root_module": {
+			"module_calls": {
+				"database": {
+					"expressions": {
+						"location": {
+							"references": [
+								"var.azure",
+							],
+						},
+						"name": {
+							"references": [
+								"var.service",
+							],
+						},
+						"password": {
+							"references": [
+								"var.db_password",
+							],
+						},
+						"username": {
+							"references": [
+								"var.db_username",
+							],
+						},
+					},
+					"module": {
+						"outputs": {
+							"endpoint": {
+								"expression": {
+									"references": [
+										"azurerm_postgresql_server.example",
+									],
+								},
+							},
+							"name": {
+								"expression": {
+									"references": [
+										"azurerm_postgresql_database.example",
+									],
+								},
+							},
+							"server": {
+								"expression": {
+									"references": [
+										"azurerm_postgresql_server.example",
+									],
+								},
+							},
+						},
+						"resources": [
+							{
+								"address": "azurerm_postgresql_database.example",
+								"expressions": {
+									"charset": {
+										"constant_value": "UTF8",
+									},
+									"collation": {
+										"constant_value": "English_United States.1252",
+									},
+									"name": {
+										"references": [
+											"var.name",
+										],
+									},
+									"resource_group_name": {
+										"references": [
+											"azurerm_resource_group.example",
+										],
+									},
+									"server_name": {
+										"references": [
+											"azurerm_postgresql_server.example",
+										],
+									},
+								},
+								"mode":                "managed",
+								"name":                "example",
+								"provider_config_key": "database:azurerm",
+								"schema_version":      0,
+								"type":                "azurerm_postgresql_database",
+							},
+							{
+								"address": "azurerm_postgresql_firewall_rule.example",
+								"expressions": {
+									"end_ip_address": {
+										"constant_value": "255.255.255.255",
+									},
+									"name": {
+										"references": [
+											"var.name",
+										],
+									},
+									"resource_group_name": {
+										"references": [
+											"azurerm_resource_group.example",
+										],
+									},
+									"server_name": {
+										"references": [
+											"azurerm_postgresql_server.example",
+										],
+									},
+									"start_ip_address": {
+										"constant_value": "0.0.0.0",
+									},
+								},
+								"mode":                "managed",
+								"name":                "example",
+								"provider_config_key": "database:azurerm",
+								"schema_version":      0,
+								"type":                "azurerm_postgresql_firewall_rule",
+							},
+							{
+								"address": "azurerm_postgresql_server.example",
+								"expressions": {
+									"administrator_login": {
+										"references": [
+											"var.username",
+										],
+									},
+									"administrator_login_password": {
+										"references": [
+											"var.password",
+										],
+									},
+									"location": {
+										"references": [
+											"azurerm_resource_group.example",
+										],
+									},
+									"name": {
+										"references": [
+											"var.name",
+										],
+									},
+									"resource_group_name": {
+										"references": [
+											"azurerm_resource_group.example",
+										],
+									},
+									"sku_name": {
+										"constant_value": "B_Gen5_2",
+									},
+									"ssl_enforcement": {
+										"constant_value": "Enabled",
+									},
+									"storage_profile": [
+										{
+											"backup_retention_days": {
+												"constant_value": 7,
+											},
+											"geo_redundant_backup": {
+												"constant_value": "Disabled",
+											},
+											"storage_mb": {
+												"constant_value": 5120,
+											},
+										},
+									],
+									"version": {
+										"constant_value": "11",
+									},
+								},
+								"mode":                "managed",
+								"name":                "example",
+								"provider_config_key": "database:azurerm",
+								"schema_version":      0,
+								"type":                "azurerm_postgresql_server",
+							},
+							{
+								"address": "azurerm_resource_group.example",
+								"expressions": {
+									"location": {
+										"references": [
+											"var.location",
+										],
+									},
+									"name": {
+										"references": [
+											"var.name",
+										],
+									},
+								},
+								"mode":                "managed",
+								"name":                "example",
+								"provider_config_key": "database:azurerm",
+								"schema_version":      0,
+								"type":                "azurerm_resource_group",
+							},
+						],
+						"variables": {
+							"location": {
+								"description": "Azure region",
+							},
+							"name": {
+								"description": "Name of database and server",
+							},
+							"password": {
+								"description": "Database password",
+							},
+							"username": {
+								"description": "Database username",
+							},
+						},
+					},
+					"source": "./azure_db",
+				},
+				"kubernetes": {
+					"expressions": {
+						"cluster_name": {
+							"references": [
+								"var.service",
+							],
+						},
+						"google_project": {
+							"references": [
+								"var.gcp",
+							],
+						},
+						"location": {
+							"references": [
+								"var.gcp",
+							],
+						},
+						"password": {
+							"references": [
+								"var.db_password",
+							],
+						},
+						"username": {
+							"constant_value": "admin",
+						},
+					},
+					"module": {
+						"resources": [
+							{
+								"address": "google_container_cluster.engineering",
+								"expressions": {
+									"initial_node_count": {
+										"constant_value": 1,
+									},
+									"location": {
+										"references": [
+											"var.location",
+										],
+									},
+									"master_auth": [
+										{
+											"client_certificate_config": [
+												{
+													"issue_client_certificate": {
+														"constant_value": false,
+													},
+												},
+											],
+											"password": {
+												"references": [
+													"var.password",
+												],
+											},
+											"username": {
+												"references": [
+													"var.username",
+												],
+											},
+										},
+									],
+									"name": {
+										"references": [
+											"var.cluster_name",
+										],
+									},
+									"remove_default_node_pool": {
+										"constant_value": true,
+									},
+								},
+								"mode":                "managed",
+								"name":                "engineering",
+								"provider_config_key": "kubernetes:google-beta",
+								"schema_version":      1,
+								"type":                "google_container_cluster",
+							},
+							{
+								"address": "google_container_node_pool.engineering_preemptible_nodes",
+								"expressions": {
+									"autoscaling": [
+										{
+											"max_node_count": {
+												"constant_value": 3,
+											},
+											"min_node_count": {
+												"constant_value": 1,
+											},
+										},
+									],
+									"cluster": {
+										"references": [
+											"google_container_cluster.engineering",
+										],
+									},
+									"location": {
+										"references": [
+											"var.location",
+										],
+									},
+									"name": {
+										"references": [
+											"var.cluster_name",
+										],
+									},
+									"node_config": [
+										{
+											"machine_type": {
+												"constant_value": "n1-standard-1",
+											},
+											"metadata": {
+												"constant_value": {
+													"disable-legacy-endpoints": "true",
+												},
+											},
+											"oauth_scopes": {
+												"constant_value": [
+													"https://www.googleapis.com/auth/logging.write",
+													"https://www.googleapis.com/auth/monitoring",
+												],
+											},
+											"preemptible": {
+												"constant_value": true,
+											},
+										},
+									],
+									"node_count": {
+										"constant_value": 1,
+									},
+								},
+								"mode":                "managed",
+								"name":                "engineering_preemptible_nodes",
+								"provider_config_key": "kubernetes:google-beta",
+								"schema_version":      1,
+								"type":                "google_container_node_pool",
+							},
+						],
+						"variables": {
+							"cluster_name": {
+								"description": "Name of cluster",
+							},
+							"google_project": {
+								"description": "Google project to deploy cluster",
+							},
+							"location": {
+								"description": "Google region to deploy cluster",
+							},
+							"password": {
+								"default":     "",
+								"description": "password for cluster",
+							},
+							"username": {
+								"default":     "",
+								"description": "username for cluster",
+							},
+						},
+					},
+					"source": "./gcp_k8s",
+				},
+			},
+			"outputs": {
+				"cluster_name": {
+					"expression": {
+						"references": [
+							"var.service",
+						],
+					},
+				},
+				"db_endpoint": {
+					"expression": {
+						"references": [
+							"module.database.endpoint",
+						],
+					},
+				},
+				"db_name": {
+					"expression": {
+						"references": [
+							"module.database.name",
+						],
+					},
+				},
+				"db_password": {
+					"expression": {
+						"references": [
+							"var.db_password",
+						],
+					},
+					"sensitive": true,
+				},
+				"db_server": {
+					"expression": {
+						"references": [
+							"module.database.server",
+						],
+					},
+				},
+				"db_username": {
+					"expression": {
+						"references": [
+							"var.db_username",
+						],
+					},
+					"sensitive": true,
+				},
+				"google_location": {
+					"expression": {
+						"references": [
+							"var.gcp",
+						],
+					},
+				},
+			},
+			"variables": {
+				"azure": {
+					"default": {
+						"location": "",
+					},
+				},
+				"db_password": {},
+				"db_username": {},
+				"gcp": {
+					"default": {
+						"location": "",
+						"project":  "",
+					},
+				},
+				"service": {},
+			},
+		},
+	},
+	"format_version": "0.1",
+	"output_changes": {
+		"cluster_name": {
+			"actions": [
+				"create",
+			],
+			"after":         "products",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"db_endpoint": {
+			"actions": [
+				"create",
+			],
+			"after_unknown": true,
+			"before":        null,
+		},
+		"db_name": {
+			"actions": [
+				"create",
+			],
+			"after":         "products",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"db_password": {
+			"actions": [
+				"create",
+			],
+			"after":         "Testing!123",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"db_server": {
+			"actions": [
+				"create",
+			],
+			"after":         "products-postgres-server",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"db_username": {
+			"actions": [
+				"create",
+			],
+			"after":         "postgres",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"google_location": {
+			"actions": [
+				"create",
+			],
+			"after":         "us-central1-f",
+			"after_unknown": false,
+			"before":        null,
+		},
+	},
+	"planned_values": {
+		"outputs": {
+			"cluster_name": {
+				"sensitive": false,
+				"value":     "products",
+			},
+			"db_endpoint": {
+				"sensitive": false,
+			},
+			"db_name": {
+				"sensitive": false,
+				"value":     "products",
+			},
+			"db_password": {
+				"sensitive": true,
+				"value":     "Testing!123",
+			},
+			"db_server": {
+				"sensitive": false,
+				"value":     "products-postgres-server",
+			},
+			"db_username": {
+				"sensitive": true,
+				"value":     "postgres",
+			},
+			"google_location": {
+				"sensitive": false,
+				"value":     "us-central1-f",
+			},
+		},
+		"root_module": {
+			"child_modules": [
+				{
+					"address": "module.database",
+					"resources": [
+						{
+							"address":        "module.database.azurerm_postgresql_database.example",
+							"mode":           "managed",
+							"name":           "example",
+							"provider_name":  "azurerm",
+							"schema_version": 0,
+							"type":           "azurerm_postgresql_database",
+							"values": {
+								"charset":             "UTF8",
+								"collation":           "English_United States.1252",
+								"name":                "products",
+								"resource_group_name": "products",
+								"server_name":         "products-postgres-server",
+								"timeouts":            null,
+							},
+						},
+						{
+							"address":        "module.database.azurerm_postgresql_firewall_rule.example",
+							"mode":           "managed",
+							"name":           "example",
+							"provider_name":  "azurerm",
+							"schema_version": 0,
+							"type":           "azurerm_postgresql_firewall_rule",
+							"values": {
+								"end_ip_address":      "255.255.255.255",
+								"name":                "products",
+								"resource_group_name": "products",
+								"server_name":         "products-postgres-server",
+								"start_ip_address":    "0.0.0.0",
+								"timeouts":            null,
+							},
+						},
+						{
+							"address":        "module.database.azurerm_postgresql_server.example",
+							"mode":           "managed",
+							"name":           "example",
+							"provider_name":  "azurerm",
+							"schema_version": 0,
+							"type":           "azurerm_postgresql_server",
+							"values": {
+								"administrator_login":          "postgres",
+								"administrator_login_password": "Testing!123",
+								"location":                     "centralus",
+								"name":                         "products-postgres-server",
+								"resource_group_name":          "products",
+								"sku_name":                     "B_Gen5_2",
+								"ssl_enforcement":              "Enabled",
+								"storage_profile": [
+									{
+										"auto_grow":             "Enabled",
+										"backup_retention_days": 7,
+										"geo_redundant_backup":  "Disabled",
+										"storage_mb":            5120,
+									},
+								],
+								"tags":     null,
+								"timeouts": null,
+								"version":  "11",
+							},
+						},
+						{
+							"address":        "module.database.azurerm_resource_group.example",
+							"mode":           "managed",
+							"name":           "example",
+							"provider_name":  "azurerm",
+							"schema_version": 0,
+							"type":           "azurerm_resource_group",
+							"values": {
+								"location": "centralus",
+								"name":     "products",
+								"tags":     null,
+								"timeouts": null,
+							},
+						},
+					],
+				},
+				{
+					"address": "module.kubernetes",
+					"resources": [
+						{
+							"address":        "module.kubernetes.google_container_cluster.engineering",
+							"mode":           "managed",
+							"name":           "engineering",
+							"provider_name":  "google-beta",
+							"schema_version": 1,
+							"type":           "google_container_cluster",
+							"values": {
+								"description":                 null,
+								"enable_binary_authorization": false,
+								"enable_intranode_visibility": false,
+								"enable_kubernetes_alpha":     false,
+								"enable_legacy_abac":          false,
+								"enable_shielded_nodes":       false,
+								"enable_tpu":                  false,
+								"initial_node_count":          1,
+								"ip_allocation_policy":        [],
+								"location":                    "us-central1-f",
+								"logging_service":             "logging.googleapis.com/kubernetes",
+								"maintenance_policy":          [],
+								"master_auth": [
+									{
+										"client_certificate_config": [
+											{
+												"issue_client_certificate": false,
+											},
+										],
+										"password": "Testing!123",
+										"username": "admin",
+									},
+								],
+								"master_authorized_networks_config": [],
+								"min_master_version":                null,
+								"monitoring_service":                "monitoring.googleapis.com/kubernetes",
+								"name":                              "products",
+								"network":                           "default",
+								"pod_security_policy_config":        [],
+								"private_cluster_config":            [],
+								"remove_default_node_pool":          true,
+								"resource_labels":                   null,
+								"resource_usage_export_config":      [],
+								"timeouts":                          null,
+								"vertical_pod_autoscaling":          [],
+								"workload_identity_config":          [],
+							},
+						},
+						{
+							"address":        "module.kubernetes.google_container_node_pool.engineering_preemptible_nodes",
+							"mode":           "managed",
+							"name":           "engineering_preemptible_nodes",
+							"provider_name":  "google-beta",
+							"schema_version": 1,
+							"type":           "google_container_node_pool",
+							"values": {
+								"autoscaling": [
+									{
+										"max_node_count": 3,
+										"min_node_count": 1,
+									},
+								],
+								"cluster":  "products",
+								"location": "us-central1-f",
+								"name":     "products-node-pool",
+								"node_config": [
+									{
+										"boot_disk_kms_key": null,
+										"machine_type":      "n1-standard-1",
+										"metadata": {
+											"disable-legacy-endpoints": "true",
+										},
+										"min_cpu_platform": null,
+										"oauth_scopes": [
+											"https://www.googleapis.com/auth/logging.write",
+											"https://www.googleapis.com/auth/monitoring",
+										],
+										"preemptible":    true,
+										"sandbox_config": [],
+										"tags":           null,
+										"workload_metadata_config": [],
+									},
+								],
+								"node_count":       1,
+								"timeouts":         null,
+								"upgrade_settings": [],
+							},
+						},
+					],
+				},
+			],
+		},
+	},
+	"prior_state": {
+		"format_version":    "0.1",
+		"terraform_version": "0.12.23",
+		"values": {
+			"outputs": {
+				"cluster_name": {
+					"sensitive": false,
+					"value":     "products",
+				},
+				"db_password": {
+					"sensitive": true,
+					"value":     "Testing!123",
+				},
+				"db_username": {
+					"sensitive": true,
+					"value":     "postgres",
+				},
+				"google_location": {
+					"sensitive": false,
+					"value":     "us-central1-f",
+				},
+			},
+			"root_module": {},
+		},
+	},
+	"resource_changes": [
+		{
+			"address": "module.database.azurerm_postgresql_database.example",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"charset":             "UTF8",
+					"collation":           "English_United States.1252",
+					"name":                "products",
+					"resource_group_name": "products",
+					"server_name":         "products-postgres-server",
+					"timeouts":            null,
+				},
+				"after_unknown": {
+					"id": true,
+				},
+				"before": null,
+			},
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"type":           "azurerm_postgresql_database",
+		},
+		{
+			"address": "module.database.azurerm_postgresql_firewall_rule.example",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"end_ip_address":      "255.255.255.255",
+					"name":                "products",
+					"resource_group_name": "products",
+					"server_name":         "products-postgres-server",
+					"start_ip_address":    "0.0.0.0",
+					"timeouts":            null,
+				},
+				"after_unknown": {
+					"id": true,
+				},
+				"before": null,
+			},
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"type":           "azurerm_postgresql_firewall_rule",
+		},
+		{
+			"address": "module.database.azurerm_postgresql_server.example",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"administrator_login":          "postgres",
+					"administrator_login_password": "Testing!123",
+					"location":                     "centralus",
+					"name":                         "products-postgres-server",
+					"resource_group_name":          "products",
+					"sku_name":                     "B_Gen5_2",
+					"ssl_enforcement":              "Enabled",
+					"storage_profile": [
+						{
+							"auto_grow":             "Enabled",
+							"backup_retention_days": 7,
+							"geo_redundant_backup":  "Disabled",
+							"storage_mb":            5120,
+						},
+					],
+					"tags":     null,
+					"timeouts": null,
+					"version":  "11",
+				},
+				"after_unknown": {
+					"fqdn": true,
+					"id":   true,
+					"storage_profile": [
+						{},
+					],
+				},
+				"before": null,
+			},
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"type":           "azurerm_postgresql_server",
+		},
+		{
+			"address": "module.database.azurerm_resource_group.example",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"location": "centralus",
+					"name":     "products",
+					"tags":     null,
+					"timeouts": null,
+				},
+				"after_unknown": {
+					"id": true,
+				},
+				"before": null,
+			},
+			"mode":           "managed",
+			"module_address": "module.database",
+			"name":           "example",
+			"provider_name":  "azurerm",
+			"type":           "azurerm_resource_group",
+		},
+		{
+			"address": "module.kubernetes.google_container_cluster.engineering",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"description":                 null,
+					"enable_binary_authorization": false,
+					"enable_intranode_visibility": false,
+					"enable_kubernetes_alpha":     false,
+					"enable_legacy_abac":          false,
+					"enable_shielded_nodes":       false,
+					"enable_tpu":                  false,
+					"initial_node_count":          1,
+					"ip_allocation_policy":        [],
+					"location":                    "us-central1-f",
+					"logging_service":             "logging.googleapis.com/kubernetes",
+					"maintenance_policy":          [],
+					"master_auth": [
+						{
+							"client_certificate_config": [
+								{
+									"issue_client_certificate": false,
+								},
+							],
+							"password": "Testing!123",
+							"username": "admin",
+						},
+					],
+					"master_authorized_networks_config": [],
+					"min_master_version":                null,
+					"monitoring_service":                "monitoring.googleapis.com/kubernetes",
+					"name":                              "products",
+					"network":                           "default",
+					"pod_security_policy_config":        [],
+					"private_cluster_config":            [],
+					"remove_default_node_pool":          true,
+					"resource_labels":                   null,
+					"resource_usage_export_config":      [],
+					"timeouts":                          null,
+					"vertical_pod_autoscaling":          [],
+					"workload_identity_config":          [],
+				},
+				"after_unknown": {
+					"additional_zones":            true,
+					"addons_config":               true,
+					"authenticator_groups_config": true,
+					"cluster_autoscaling":         true,
+					"cluster_ipv4_cidr":           true,
+					"database_encryption":         true,
+					"default_max_pods_per_node":   true,
+					"endpoint":                    true,
+					"id":                          true,
+					"instance_group_urls":  true,
+					"ip_allocation_policy": [],
+					"label_fingerprint":    true,
+					"maintenance_policy":   [],
+					"master_auth": [
+						{
+							"client_certificate": true,
+							"client_certificate_config": [
+								{},
+							],
+							"client_key":             true,
+							"cluster_ca_certificate": true,
+						},
+					],
+					"master_authorized_networks_config": [],
+					"master_version":                    true,
+					"network_policy":                    true,
+					"node_config":                       true,
+					"node_locations":                    true,
+					"node_pool":                         true,
+					"node_version":                      true,
+					"operation":                         true,
+					"pod_security_policy_config":        [],
+					"private_cluster_config":            [],
+					"project":                           true,
+					"region":                            true,
+					"release_channel":                   true,
+					"resource_usage_export_config":      [],
+					"services_ipv4_cidr":                true,
+					"subnetwork":                        true,
+					"tpu_ipv4_cidr_block":               true,
+					"vertical_pod_autoscaling":          [],
+					"workload_identity_config":          [],
+					"zone": true,
+				},
+				"before": null,
+			},
+			"mode":           "managed",
+			"module_address": "module.kubernetes",
+			"name":           "engineering",
+			"provider_name":  "google-beta",
+			"type":           "google_container_cluster",
+		},
+		{
+			"address": "module.kubernetes.google_container_node_pool.engineering_preemptible_nodes",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"autoscaling": [
+						{
+							"max_node_count": 3,
+							"min_node_count": 1,
+						},
+					],
+					"cluster":  "products",
+					"location": "us-central1-f",
+					"name":     "products-node-pool",
+					"node_config": [
+						{
+							"boot_disk_kms_key": null,
+							"machine_type":      "n1-standard-1",
+							"metadata": {
+								"disable-legacy-endpoints": "true",
+							},
+							"min_cpu_platform": null,
+							"oauth_scopes": [
+								"https://www.googleapis.com/auth/logging.write",
+								"https://www.googleapis.com/auth/monitoring",
+							],
+							"preemptible":    true,
+							"sandbox_config": [],
+							"tags":           null,
+							"workload_metadata_config": [],
+						},
+					],
+					"node_count":       1,
+					"timeouts":         null,
+					"upgrade_settings": [],
+				},
+				"after_unknown": {
+					"autoscaling": [
+						{},
+					],
+					"id":                  true,
+					"initial_node_count":  true,
+					"instance_group_urls": true,
+					"management":          true,
+					"max_pods_per_node":   true,
+					"name_prefix":         true,
+					"node_config": [
+						{
+							"disk_size_gb":      true,
+							"disk_type":         true,
+							"guest_accelerator": true,
+							"image_type":        true,
+							"labels":            true,
+							"local_ssd_count":   true,
+							"metadata":          {},
+							"oauth_scopes": [
+								false,
+								false,
+							],
+							"sandbox_config":           [],
+							"service_account":          true,
+							"shielded_instance_config": true,
+							"taint":                    true,
+							"workload_metadata_config": [],
+						},
+					],
+					"node_locations":   true,
+					"project":          true,
+					"region":           true,
+					"upgrade_settings": [],
+					"version":          true,
+					"zone":             true,
+				},
+				"before": null,
+			},
+			"mode":           "managed",
+			"module_address": "module.kubernetes",
+			"name":           "engineering_preemptible_nodes",
+			"provider_name":  "google-beta",
+			"type":           "google_container_node_pool",
+		},
+	],
+	"terraform_version": "0.12.23",
+	"variables": {
+		"azure": {
+			"value": {
+				"location": "Central US",
+			},
+		},
+		"db_password": {
+			"value": "Testing!123",
+		},
+		"db_username": {
+			"value": "postgres",
+		},
+		"gcp": {
+			"value": {
+				"location": "us-central1-f",
+				"project":  "hc-da-test",
+			},
+		},
+		"service": {
+			"value": "products",
+		},
+	},
+}

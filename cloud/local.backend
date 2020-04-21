@@ -1,0 +1,6 @@
+hostname = "app.terraform.io"
+organization = "hashicorp-team-demo"
+
+workspaces {
+  name = "hashicorp-demoapp"
+}

@@ -1,0 +1,25 @@
+import "tfplan/v2" as tfplan
+
+resources = values(tfplan.planned_values.resources)
+
+resources_with_tag_field = filter resources as _, v { v.values contains "tags" }
+gcp_node_pools_with_tag_field = filter resources as _, v { v.values contains "node_config" }
+
+resources_with_tag_field_have_defined_tags = rule {
+	all resources_with_tag_field as resource {
+		resource.values.tags is not null
+	}
+}
+
+gcp_node_pools_with_tag_field_have_defined_tags = rule {
+	all gcp_node_pools_with_tag_field as node_pool {
+		all node_pool.values.node_config as node_config {
+			node_config.tags is not null
+		}
+	}
+}
+
+main = rule {
+	resources_with_tag_field_have_defined_tags and
+	gcp_node_pools_with_tag_field_have_defined_tags
+}

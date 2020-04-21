@@ -1,0 +1,807 @@
+import "strings"
+import "types"
+
+_modules = {
+	"root": {
+		"data":      {},
+		"path":      [],
+		"resources": {},
+	},
+
+	"module.database": {
+		"data": {},
+		"path": [
+			"database",
+		],
+		"resources": {
+			"azurerm_postgresql_database": {
+				"example": {
+					0: {
+						"applied": {
+							"charset":             "UTF8",
+							"collation":           "English_United States.1252",
+							"name":                "products",
+							"resource_group_name": "products",
+							"server_name":         "products-postgres-server",
+							"timeouts":            null,
+						},
+						"destroy": false,
+						"diff": {
+							"charset": {
+								"computed": false,
+								"new":      "UTF8",
+								"old":      "",
+							},
+							"collation": {
+								"computed": false,
+								"new":      "English_United States.1252",
+								"old":      "",
+							},
+							"id": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"resource_group_name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"server_name": {
+								"computed": false,
+								"new":      "products-postgres-server",
+								"old":      "",
+							},
+							"timeouts": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+						},
+						"requires_new": false,
+					},
+				},
+			},
+			"azurerm_postgresql_firewall_rule": {
+				"example": {
+					0: {
+						"applied": {
+							"end_ip_address":      "255.255.255.255",
+							"name":                "products",
+							"resource_group_name": "products",
+							"server_name":         "products-postgres-server",
+							"start_ip_address":    "0.0.0.0",
+							"timeouts":            null,
+						},
+						"destroy": false,
+						"diff": {
+							"end_ip_address": {
+								"computed": false,
+								"new":      "255.255.255.255",
+								"old":      "",
+							},
+							"id": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"resource_group_name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"server_name": {
+								"computed": false,
+								"new":      "products-postgres-server",
+								"old":      "",
+							},
+							"start_ip_address": {
+								"computed": false,
+								"new":      "0.0.0.0",
+								"old":      "",
+							},
+							"timeouts": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+						},
+						"requires_new": false,
+					},
+				},
+			},
+			"azurerm_postgresql_server": {
+				"example": {
+					0: {
+						"applied": {
+							"administrator_login":          "postgres",
+							"administrator_login_password": "Testing!123",
+							"location":                     "centralus",
+							"name":                         "products-postgres-server",
+							"resource_group_name":          "products",
+							"sku_name":                     "B_Gen5_2",
+							"ssl_enforcement":              "Enabled",
+							"storage_profile": [
+								{
+									"auto_grow":             "Enabled",
+									"backup_retention_days": 7,
+									"geo_redundant_backup":  "Disabled",
+									"storage_mb":            5120,
+								},
+							],
+							"tags":     null,
+							"timeouts": null,
+							"version":  "11",
+						},
+						"destroy": false,
+						"diff": {
+							"administrator_login": {
+								"computed": false,
+								"new":      "postgres",
+								"old":      "",
+							},
+							"administrator_login_password": {
+								"computed": false,
+								"new":      "Testing!123",
+								"old":      "",
+							},
+							"fqdn": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"id": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"location": {
+								"computed": false,
+								"new":      "centralus",
+								"old":      "",
+							},
+							"name": {
+								"computed": false,
+								"new":      "products-postgres-server",
+								"old":      "",
+							},
+							"resource_group_name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"sku_name": {
+								"computed": false,
+								"new":      "B_Gen5_2",
+								"old":      "",
+							},
+							"ssl_enforcement": {
+								"computed": false,
+								"new":      "Enabled",
+								"old":      "",
+							},
+							"storage_profile.#": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"storage_profile.0.%": {
+								"computed": false,
+								"new":      "4",
+								"old":      "",
+							},
+							"storage_profile.0.auto_grow": {
+								"computed": false,
+								"new":      "Enabled",
+								"old":      "",
+							},
+							"storage_profile.0.backup_retention_days": {
+								"computed": false,
+								"new":      "7",
+								"old":      "",
+							},
+							"storage_profile.0.geo_redundant_backup": {
+								"computed": false,
+								"new":      "Disabled",
+								"old":      "",
+							},
+							"storage_profile.0.storage_mb": {
+								"computed": false,
+								"new":      "5120",
+								"old":      "",
+							},
+							"tags": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"timeouts": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"version": {
+								"computed": false,
+								"new":      "11",
+								"old":      "",
+							},
+						},
+						"requires_new": false,
+					},
+				},
+			},
+			"azurerm_resource_group": {
+				"example": {
+					0: {
+						"applied": {
+							"location": "centralus",
+							"name":     "products",
+							"tags":     null,
+							"timeouts": null,
+						},
+						"destroy": false,
+						"diff": {
+							"id": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"location": {
+								"computed": false,
+								"new":      "centralus",
+								"old":      "",
+							},
+							"name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"tags": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"timeouts": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+						},
+						"requires_new": false,
+					},
+				},
+			},
+		},
+	},
+
+	"module.kubernetes": {
+		"data": {},
+		"path": [
+			"kubernetes",
+		],
+		"resources": {
+			"google_container_cluster": {
+				"engineering": {
+					0: {
+						"applied": {
+							"description":                 null,
+							"enable_binary_authorization": false,
+							"enable_intranode_visibility": false,
+							"enable_kubernetes_alpha":     false,
+							"enable_legacy_abac":          false,
+							"enable_shielded_nodes":       false,
+							"enable_tpu":                  false,
+							"initial_node_count":          1,
+							"ip_allocation_policy":        [],
+							"location":                    "us-central1-f",
+							"logging_service":             "logging.googleapis.com/kubernetes",
+							"maintenance_policy":          [],
+							"master_auth": [
+								{
+									"client_certificate_config": [
+										{
+											"issue_client_certificate": false,
+										},
+									],
+									"password": "Testing!123",
+									"username": "admin",
+								},
+							],
+							"master_authorized_networks_config": [],
+							"min_master_version":                null,
+							"monitoring_service":                "monitoring.googleapis.com/kubernetes",
+							"name":                              "products",
+							"network":                           "default",
+							"pod_security_policy_config":        [],
+							"private_cluster_config":            [],
+							"remove_default_node_pool":          true,
+							"resource_labels":                   null,
+							"resource_usage_export_config":      [],
+							"timeouts":                          null,
+							"vertical_pod_autoscaling":          [],
+							"workload_identity_config":          [],
+						},
+						"destroy": false,
+						"diff": {
+							"additional_zones.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"addons_config.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"authenticator_groups_config.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"cluster_autoscaling.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"cluster_ipv4_cidr": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"database_encryption": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"default_max_pods_per_node": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"description": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"enable_binary_authorization": {
+								"computed": false,
+								"new":      "false",
+								"old":      "",
+							},
+							"enable_intranode_visibility": {
+								"computed": false,
+								"new":      "false",
+								"old":      "",
+							},
+							"enable_kubernetes_alpha": {
+								"computed": false,
+								"new":      "false",
+								"old":      "",
+							},
+							"enable_legacy_abac": {
+								"computed": false,
+								"new":      "false",
+								"old":      "",
+							},
+							"enable_shielded_nodes": {
+								"computed": false,
+								"new":      "false",
+								"old":      "",
+							},
+							"enable_tpu": {
+								"computed": false,
+								"new":      "false",
+								"old":      "",
+							},
+							"endpoint": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"id": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"initial_node_count": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"instance_group_urls.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"ip_allocation_policy.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"label_fingerprint": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"location": {
+								"computed": false,
+								"new":      "us-central1-f",
+								"old":      "",
+							},
+							"logging_service": {
+								"computed": false,
+								"new":      "logging.googleapis.com/kubernetes",
+								"old":      "",
+							},
+							"maintenance_policy.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"master_auth.#": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"master_auth.0.%": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"master_authorized_networks_config.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"master_version": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"min_master_version": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"monitoring_service": {
+								"computed": false,
+								"new":      "monitoring.googleapis.com/kubernetes",
+								"old":      "",
+							},
+							"name": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"network": {
+								"computed": false,
+								"new":      "default",
+								"old":      "",
+							},
+							"network_policy.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"node_config.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"node_locations.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"node_pool.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"node_version": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"operation": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"pod_security_policy_config.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"private_cluster_config.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"project": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"region": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"release_channel": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"remove_default_node_pool": {
+								"computed": false,
+								"new":      "true",
+								"old":      "",
+							},
+							"resource_labels": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"resource_usage_export_config.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"services_ipv4_cidr": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"subnetwork": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"timeouts": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"tpu_ipv4_cidr_block": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"vertical_pod_autoscaling.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"workload_identity_config.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"zone": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+						},
+						"requires_new": false,
+					},
+				},
+			},
+			"google_container_node_pool": {
+				"engineering_preemptible_nodes": {
+					0: {
+						"applied": {
+							"autoscaling": [
+								{
+									"max_node_count": 3,
+									"min_node_count": 1,
+								},
+							],
+							"cluster":  "products",
+							"location": "us-central1-f",
+							"name":     "products-node-pool",
+							"node_config": [
+								{
+									"boot_disk_kms_key": null,
+									"machine_type":      "n1-standard-1",
+									"metadata": {
+										"disable-legacy-endpoints": "true",
+									},
+									"min_cpu_platform": null,
+									"oauth_scopes": [
+										"https://www.googleapis.com/auth/logging.write",
+										"https://www.googleapis.com/auth/monitoring",
+									],
+									"preemptible":    true,
+									"sandbox_config": [],
+									"tags":           null,
+									"workload_metadata_config": [],
+								},
+							],
+							"node_count":       1,
+							"timeouts":         null,
+							"upgrade_settings": [],
+						},
+						"destroy": false,
+						"diff": {
+							"autoscaling.#": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"autoscaling.0.%": {
+								"computed": false,
+								"new":      "2",
+								"old":      "",
+							},
+							"autoscaling.0.max_node_count": {
+								"computed": false,
+								"new":      "3",
+								"old":      "",
+							},
+							"autoscaling.0.min_node_count": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"cluster": {
+								"computed": false,
+								"new":      "products",
+								"old":      "",
+							},
+							"id": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"initial_node_count": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"instance_group_urls.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"location": {
+								"computed": false,
+								"new":      "us-central1-f",
+								"old":      "",
+							},
+							"management.#": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"max_pods_per_node": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"name": {
+								"computed": false,
+								"new":      "products-node-pool",
+								"old":      "",
+							},
+							"name_prefix": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"node_config.#": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"node_config.0.%": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"node_count": {
+								"computed": false,
+								"new":      "1",
+								"old":      "",
+							},
+							"node_locations": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"project": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"region": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"timeouts": {
+								"computed": false,
+								"new":      "",
+								"old":      "",
+							},
+							"upgrade_settings.#": {
+								"computed": false,
+								"new":      "0",
+								"old":      "",
+							},
+							"version": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+							"zone": {
+								"computed": true,
+								"new":      "",
+								"old":      "",
+							},
+						},
+						"requires_new": false,
+					},
+				},
+			},
+		},
+	},
+}
+
+module_paths = [
+	[],
+	[
+		"database",
+	],
+	[
+		"kubernetes",
+	],
+]
+
+terraform_version = "0.12.23"
+
+variables = {
+	"azure": {
+		"location": "Central US",
+	},
+	"db_password": "Testing!123",
+	"db_username": "postgres",
+	"gcp": {
+		"location": "us-central1-f",
+		"project":  "hc-da-test",
+	},
+	"service": "products",
+}
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+path = _modules.root.path
+resources = _modules.root.resources
